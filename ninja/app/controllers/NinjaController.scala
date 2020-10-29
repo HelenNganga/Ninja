@@ -18,6 +18,7 @@ class NinjaController @Inject()(cc: ControllerComponents) extends AbstractContro
 
   def ninjaAsText = NinjaGame.tui.stateToString()
 
+
   def newGame() = Action{
     gameController.newGame()
     Ok(NinjaGame.tui.stateToString())
@@ -26,7 +27,7 @@ class NinjaController @Inject()(cc: ControllerComponents) extends AbstractContro
 
   def player(player: String)= Action{
     gameController.setName(player)
-    Ok(NinjaGame.tui.stateToString())
+    Ok(views.html.ninja(gameController))
   }
 
   def setFlag(row: Int, col: Int)= Action{
@@ -59,7 +60,7 @@ class NinjaController @Inject()(cc: ControllerComponents) extends AbstractContro
   }
 
   def ninja = Action {
-    Ok(ninjaAsText)
+    Ok(views.html.ninja(gameController))
   }
 
 }

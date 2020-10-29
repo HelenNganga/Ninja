@@ -1,0 +1,35 @@
+@import de.htwg.se.ninja.controller.ControllerInterface
+@import de.htwg.se.ninja.controller.component.State
+@(controller:ControllerInterface)
+
+
+@size= @{ controller.desk.field.matrix.length }
+
+@main("HTWG Ninja") {
+   <div>
+
+       <div>
+           <p id="infoText">
+               @controller.state
+           </p>
+       </div>
+
+       <div id="actionButtons">
+           @if(controller.state == State.INSERTING_NAME_1){
+               <form action="@controllers.routes.NinjaController.player("Helen")">
+               Name: <input id="nameField" type="text" name="name">
+               <input value="Enter" type="submit">
+               </form>
+           }
+
+           @if(controller.state == State.INSERTING_NAME_2){
+               <form action="@controllers.routes.NinjaController.player("Julia")">
+               Name: <input id="nameField" type="text" name="name">
+               <input value="Enter" type="submit">
+               </form>
+           }
+
+       </div>
+
+       </div>
+}
