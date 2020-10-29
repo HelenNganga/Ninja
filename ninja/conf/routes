@@ -13,7 +13,7 @@ GET     /player2/:player                    controllers.NinjaController.player(p
 GET     /setFlag/:row:col                   controllers.NinjaController.setFlag(row: Int, col:Int)
 GET     /walk/:row:col:d                    controllers.NinjaController.walk(row: Int, col:Int, d:String)
 GET     /f                                  controllers.NinjaController.changeTurn()
-GET     /new                                controllers.NinjaController.newGame()
+
 
 
 # Map static resources from the /public folder to the /assets URL path
