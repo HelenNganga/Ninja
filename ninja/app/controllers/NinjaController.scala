@@ -19,11 +19,6 @@ class NinjaController @Inject()(cc: ControllerComponents) extends AbstractContro
   def ninjaAsText = NinjaGame.tui.stateToString()
 
 
-  def newGame() = Action{
-    gameController.newGame()
-    Ok(NinjaGame.tui.stateToString())
-  }
-
 
   def player(player: String)= Action{
     gameController.setName(player)
@@ -32,7 +27,7 @@ class NinjaController @Inject()(cc: ControllerComponents) extends AbstractContro
 
   def setFlag(row: Int, col: Int)= Action{
     gameController.setFlag(row,col)
-    Ok(NinjaGame.tui.stateToString())
+    Ok(views.html.ninja(gameController))
   }
 
   def walk(row: Int, col: Int, d: String)= Action{
@@ -40,12 +35,12 @@ class NinjaController @Inject()(cc: ControllerComponents) extends AbstractContro
     val dir = StringToDirection(d)
     print(dir)
     gameController.walk(row,col,dir)
-    Ok(NinjaGame.tui.stateToString())
+    Ok(views.html.ninja(gameController))
   }
 
   def changeTurn()= Action{
     gameController.changeTurns()
-    Ok(NinjaGame.tui.stateToString())
+    Ok(views.html.ninja(gameController))
   }
 
   def StringToDirection(d: String): Direction.direction = d match {

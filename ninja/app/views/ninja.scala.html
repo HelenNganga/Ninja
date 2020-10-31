@@ -3,6 +3,7 @@
 @(controller:ControllerInterface)
 
 
+
 @size= @{ controller.desk.field.matrix.length }
 
 @main("HTWG Ninja") {
@@ -17,8 +18,8 @@
        <div id="actionButtons">
            @if(controller.state == State.INSERTING_NAME_1){
                <form action="@controllers.routes.NinjaController.player("Helen")">
-               Name: <input id="nameField" type="text" name="name">
-               <input value="Enter" type="submit">
+                   Name: <input  type="text" name="name">
+                   <input value="Enter" type="submit">
                </form>
            }
 
@@ -29,7 +30,57 @@
                </form>
            }
 
-       </div>
+           @if(controller.state == State.SET_FLAG_1){
+               <form action="@controllers.routes.NinjaController.setFlag(0,0)">
+                   setFlag: <input id="nameField" type="text" name="name">
+                   <input value="Enter" type="submit">
+               </form>
+           }
+
+           @if(controller.state == State.SET_FLAG_2){
+               <form action="@controllers.routes.NinjaController.setFlag(5,5)">
+                   setFlag: <input id="nameField" type="text" name="name">
+                   <input value="Enter" type="submit">
+               </form>
+           }
+
+           @if(controller.state == State.TURN){
+               <form action="@controllers.routes.NinjaController.walk(1,0,"d")">
+                   Walk: <input id="nameField" type="text">
+                   <input value="Enter" type="submit">
+               </form>
+           }
+
+           @if(controller.state == State.WALKED){
+               <form action="@controllers.routes.NinjaController.changeTurn()">
+               <button>next</button>
+               </form>
+           }
+
+
 
        </div>
+
+       <div>
+           <div class="game">
+           @for(row <- 0 until size) {
+               <div class="house size@size">
+               @for(col <- 0 until size) {
+                   <span class="cell">
+                       <span class="@{"number"}">
+                       @{controller.cellToString(controller.currentPlayer,row,col)}
+                       </span>
+
+                   </span>
+               }
+               </div>
+               <div class="clear"></div>
+           }
+           </div>
+
+       </div>
+
+
+   </div>
 }
+
