@@ -1,0 +1,12 @@
+
+h1{color: darkgreen; font-family: Gabriola ; font-size: 5em; margin-left: 7vw}
+h2{color: darkgreen}
+
+.about{background-image: url("background.jpg")}
+.dragon{height: 200px}
+.rules{background-image: url("rules.png"); background-size: contain; background-repeat: no-repeat ; width: 80%; height: 50vw;margin-left: 15vw;}
+.rules-text{width: 30%; padding-left: 8vw; padding-top: 5vw; text-align: center}
+.header-rules{text-align: justify;}
+.list-rules{float: left; line-height: 5vw}
+.list-images{float: right}
+.history{width: 50%; text-align: justify; margin: 5vw}
