@@ -1,5 +1,7 @@
 
-h1{color: darkgreen; font-family: Gabriola ; font-size: 5em; margin-left: 7vw}
+.about-header{color: darkgreen; margin-left: 7vw}
+
+h1{font-family: Gabriola ; font-size: 5em;}
 h2{color: darkgreen}
 
 .about{background-image: url("background.jpg")}
@@ -10,3 +12,18 @@ h2{color: darkgreen}
 .list-rules{float: left; line-height: 5vw}
 .list-images{float: right}
 .history{width: 50%; text-align: justify; margin: 5vw}
+
+
+.game{height: 100%; background-color: black; margin-bottom: auto}
+
+.field{border: solid darkgoldenrod 10px; width: 40% ; text-align: center; alignment: center; margin-left: 30% ;
+    background-color: darkred; font-size: xx-large; color: darkgoldenrod ; margin-bottom: 3vw }
+.game-header{color: darkred ; text-align: center}
+.lampe1{width: 15%; float: right}
+.lampe2{width: 15%; float: left}
+.ninja-img{height: 10vw; text-align: center; margin-bottom: 10vw; alignment: center;
+    margin-left: auto; margin-right: auto; display: block }
+
+#actionButtons{text-align: center;font-family: Gabriola; color: darkred;
+    font-weight: bold; font-size: xx-large}
+#infoText{text-align: center; font-family: Gabriola; color: darkred; font-weight: bold; font-size: xx-large}

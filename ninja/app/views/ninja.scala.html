@@ -7,12 +7,33 @@
 @size= @{ controller.desk.field.matrix.length }
 
 @main("HTWG Ninja") {
-   <div>
-
+   <div class="game">
+        <h1 class="game-header"> Ninja - THE GAME</h1>
+       <img class="lampe1" src="../assets/lampe.png">
+       <img class="lampe2" src="../assets/lampe.png">
        <div>
            <p id="infoText">
                @controller.state
            </p>
+       </div>
+
+       <div>
+           <div class="field">
+           @for(row <- 0 until size) {
+               <div class="house size@size">
+               @for(col <- 0 until size) {
+                   <span class="cell">
+                       <span class="@{"number"}">
+                       @{controller.cellToString(controller.currentPlayer,row,col)}
+                       </span>
+
+                   </span>
+               }
+               </div>
+               <div class="clear"></div>
+           }
+           </div>
+
        </div>
 
        <div id="actionButtons">
@@ -61,26 +82,8 @@
 
        </div>
 
-       <div>
-           <div class="game">
-           @for(row <- 0 until size) {
-               <div class="house size@size">
-               @for(col <- 0 until size) {
-                   <span class="cell">
-                       <span class="@{"number"}">
-                       @{controller.cellToString(controller.currentPlayer,row,col)}
-                       </span>
-
-                   </span>
-               }
-               </div>
-               <div class="clear"></div>
-           }
-           </div>
-
-       </div>
-
-
+       <img class="ninja-img" src="../assets/ninjaBlack.png">
+        <br>
    </div>
 }
 
