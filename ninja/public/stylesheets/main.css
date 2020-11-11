@@ -14,10 +14,14 @@ h2{color: darkgreen}
 .history{width: 50%; text-align: justify; margin: 5vw}
 
 
-.game{height: 100%; background-color: black; margin-bottom: auto}
+.game{height: 100%; background-color: black; margin-bottom: auto;}
 
-.field{border: solid darkgoldenrod 10px; width: 40% ; text-align: center; alignment: center; margin-left: 30% ;
-    background-color: darkred; font-size: xx-large; color: darkgoldenrod ; margin-bottom: 3vw }
+.field{border: solid 40px; border-image: url("gold.jpg");
+    border-image-width: 40px;
+    border-image-slice: 10%;
+    border-image-outset: 40px;
+    width: 20% ; text-align: center; alignment: center; margin-left: 37vw;
+    background-color: darkred; font-size: xx-large; color: darkgoldenrod ; margin-bottom: 3vw}
 .game-header{color: darkred ; text-align: center}
 .lampe1{width: 15%; float: right}
 .lampe2{width: 15%; float: left}
