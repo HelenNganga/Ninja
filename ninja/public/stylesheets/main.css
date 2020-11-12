@@ -1,33 +1,38 @@
 
-.about-header{color: darkgreen; margin-left: 7vw}
 
-h1{font-family: Gabriola ; font-size: 5em;}
-h2{color: darkgreen}
+.nav-link{font-weight: bold; font-size: large}
 
-.about{background-image: url("background.jpg")}
+
+
+
+.about-header{color: darkslategray; text-align: center;padding-top: 3vw; font-weight: bold}
+
+h1{font-family: Gabriola ; font-size: 5em}
+h2{font-family: Gabriola; font-weight: bold; color: darkslategray}
+
+.about{background-image: url("tori.jpg")}
 .dragon{height: 200px}
-.rules{background-image: url("rules.png"); background-size: contain; background-repeat: no-repeat ; width: 80%; height: 50vw;margin-left: 15vw;}
-.rules-text{width: 30%; padding-left: 8vw; padding-top: 5vw; text-align: center}
-.header-rules{text-align: justify;}
-.list-rules{float: left; line-height: 5vw}
-.list-images{float: right}
-.history{width: 50%; text-align: justify; margin: 5vw}
+.rules-title{padding-left:  3vw}
+.rules-grid{margin: 3vw}
+.history{width: 40%; text-align: justify; margin: 3vw}
 
 
-.game{height: 100%; background-color: black; margin-bottom: auto;}
 
-.field{border: solid 40px; border-image: url("gold.jpg");
-    border-image-width: 40px;
-    border-image-slice: 10%;
-    border-image-outset: 40px;
-    width: 20% ; text-align: center; alignment: center; margin-left: 37vw;
-    background-color: darkred; font-size: xx-large; color: darkgoldenrod ; margin-bottom: 3vw}
-.game-header{color: darkred ; text-align: center}
-.lampe1{width: 15%; float: right}
-.lampe2{width: 15%; float: left}
+
+.game{height: 100%; background-image: url("tori.jpg"); margin-bottom: auto;}
+
+.field{border: solid 40px;
+    width: 30% ; margin-left: 5vw;
+    background-color: gray; font-size: xx-large; color: black ; margin-bottom: 3vw; float: left}
+.game-header{color: darkslategray; text-align: center; padding-top: 3vw; font-weight: bold}
+
 .ninja-img{height: 10vw; text-align: center; margin-bottom: 10vw; alignment: center;
     margin-left: auto; margin-right: auto; display: block }
 
-#actionButtons{text-align: center;font-family: Gabriola; color: darkred;
-    font-weight: bold; font-size: xx-large}
-#infoText{text-align: center; font-family: Gabriola; color: darkred; font-weight: bold; font-size: xx-large}
+#actionButtons{font-family: Gabriola; color: darkslategray;
+    font-weight: bold; font-size: xx-large; float: right; margin-top: 5vw; margin-right: 15vw}
+
+/*#infoText{font-family: Gabriola; color: darkslategray; font-weight: bold; font-size: xx-large;*/
+/*    float: right;}*/
+
+

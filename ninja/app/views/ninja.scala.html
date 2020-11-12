@@ -1,90 +1,115 @@
 @import de.htwg.se.ninja.controller.ControllerInterface
 @import de.htwg.se.ninja.controller.component.State
-@(controller:ControllerInterface)
+@(controller: ControllerInterface)
 
 
 
-@size= @{ controller.desk.field.matrix.length }
+@size = @{
+    controller.desk.field.matrix.length
+}
 
 @main("HTWG Ninja") {
-   <div class="game">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">
+            <img class="logo" src="../assets/ninjaBlack.png" alt="ninja" width="50"/>
+
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Game<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/about">About</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="game">
         <h1 class="game-header">
-            <img class="lampe1" src="../assets/lampe.png">
             Ninja - THE GAME
-            <img class="lampe2" src="../assets/lampe.png"></h1>
-       <div>
-           <p id="infoText">
-               @controller.state
-           </p>
-       </div>
+        </h1>
 
-       <div>
-           <div class="field">
-           @for(row <- 0 until size) {
-               <div class="house size@size">
-               @for(col <- 0 until size) {
-                   <span class="cell">
-                       <span class="@{"number"}">
-                       @{controller.cellToString(controller.currentPlayer,row,col)}
-                       </span>
+            <div>
+                <div class="field">
+                @for(row <- 0 until size) {
+                    <div class="house size@size">
+                    @for(col <- 0 until size) {
+                        <span class="cell">
+                            <span class="@{
+                                "number"
+                            }">
+                            @{
+                                controller.cellToString(controller.currentPlayer, row, col)
+                            }
+                            </span>
 
-                   </span>
-               }
-               </div>
-               <div class="clear"></div>
-           }
-           </div>
+                        </span>
+                    }
+                    </div>
+                    <div class="clear"></div>
+                }
+                </div>
 
-       </div>
+            </div>
 
-       <div id="actionButtons">
-           @if(controller.state == State.INSERTING_NAME_1){
-               <form action="@controllers.routes.NinjaController.player("Helen")">
-                   Name: <input  type="text" name="name">
-                   <input value="Enter" type="submit">
-               </form>
-           }
+            <div id="actionButtons">
+                <p id="infoText">
+                @controller.state
+                </p>
+                @if(controller.state == State.INSERTING_NAME_1) {
+                    <form action="@controllers.routes.NinjaController.player("Helen")">
+                        Name: <input type="text" name="name">
+                        <input value="Enter" type="submit">
+                    </form>
+                }
 
-           @if(controller.state == State.INSERTING_NAME_2){
-               <form action="@controllers.routes.NinjaController.player("Julia")">
-               Name: <input id="nameField" type="text" name="name">
-               <input value="Enter" type="submit">
-               </form>
-           }
+                @if(controller.state == State.INSERTING_NAME_2) {
+                    <form action="@controllers.routes.NinjaController.player("Julia")">
+                        Name: <input id="nameField" type="text" name="name">
+                        <input value="Enter" type="submit">
+                    </form>
+                }
 
-           @if(controller.state == State.SET_FLAG_1){
-               <form action="@controllers.routes.NinjaController.setFlag(0,0)">
-                   setFlag: <input id="nameField" type="text" name="name">
-                   <input value="Enter" type="submit">
-               </form>
-           }
+                @if(controller.state == State.SET_FLAG_1) {
+                    <form action="@controllers.routes.NinjaController.setFlag(0, 0)">
+                        setFlag: <input id="nameField" type="text" name="name">
+                        <input value="Enter" type="submit">
+                    </form>
+                }
 
-           @if(controller.state == State.SET_FLAG_2){
-               <form action="@controllers.routes.NinjaController.setFlag(5,5)">
-                   setFlag: <input id="nameField" type="text" name="name">
-                   <input value="Enter" type="submit">
-               </form>
-           }
+                @if(controller.state == State.SET_FLAG_2) {
+                    <form action="@controllers.routes.NinjaController.setFlag(5, 5)">
+                        setFlag: <input id="nameField" type="text" name="name">
+                        <input value="Enter" type="submit">
+                    </form>
+                }
 
-           @if(controller.state == State.TURN){
-               <form action="@controllers.routes.NinjaController.walk(1,0,"d")">
-                   Walk: <input id="nameField" type="text">
-                   <input value="Enter" type="submit">
-               </form>
-           }
+                @if(controller.state == State.TURN) {
+                    <form action="@controllers.routes.NinjaController.walk(1, 0, "d")">
+                        Walk: <input id="nameField" type="text">
+                        <input value="Enter" type="submit">
+                    </form>
+                }
 
-           @if(controller.state == State.WALKED){
-               <form action="@controllers.routes.NinjaController.changeTurn()">
-               <button>next</button>
-               </form>
-           }
+                @if(controller.state == State.WALKED) {
+                    <form action="@controllers.routes.NinjaController.changeTurn()">
+                        <button>next</button>
+                    </form>
+                }
 
 
+            </div>
 
-       </div>
-
-       <img class="ninja-img" src="../assets/ninjaBlack.png">
-        <br>
-   </div>
+        </div>
 }
 
