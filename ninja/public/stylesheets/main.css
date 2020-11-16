@@ -15,11 +15,20 @@ h2{font-family: Gabriola; font-weight: bold; color: darkslategray}
 .rules-title{padding-left:  3vw}
 .rules-grid{margin: 3vw}
 .history{width: 40%; text-align: justify; margin: 3vw}
+.btn-secondary{text-align: center}
 
 
 
 
-.game{height: 100%; background-image: url("tori.jpg"); margin-bottom: auto;}
+.game{height: 100%; margin-bottom: auto;}
+
+.highscore-header{text-align: center; color: darkslategray; padding-top: 2vw}
+
+.home{background-image: url("tori.jpg")}
+.home-header{text-align: center; color: darkslategray; padding-top: 2vw}
+.card-img-top{height: 15vw;}
+.card{width: 16rem}
+.checked{color: yellow}
 
 .field{border: solid 40px;
     width: 30% ; margin-left: 5vw;
@@ -36,3 +45,8 @@ h2{font-family: Gabriola; font-weight: bold; color: darkslategray}
 /*    float: right;}*/
 
 
+.card-horizontal {
+    display: flex;
+    flex: 1 1 auto;
+}
+.rating-card{width: 40rem; margin-left: 3vw; margin-top: 3vw}

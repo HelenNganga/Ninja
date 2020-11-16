@@ -6,7 +6,9 @@
 # An example controller showing a sample home page
 
 
-GET     /                                   controllers.NinjaController.ninja
+GET     /                                   controllers.NinjaController.home
+GET     /highscore                          controllers.NinjaController.highscore
+GET     /game                               controllers.NinjaController.ninja
 GET     /about                              controllers.NinjaController.about
 GET     /player1/:player                    controllers.NinjaController.player(player: String)
 GET     /player2/:player                    controllers.NinjaController.player(player: String)
