@@ -47,16 +47,9 @@
                 @for(row <- 0 until size) {
                     <div class="house size@size">
                     @for(col <- 0 until size) {
-                        <span class="cell">
-                            <span class="@{
-                                "number"
-                            }">
-                            @{
-                                controller.cellToString(controller.currentPlayer, row, col)
-                            }
-                            </span>
-
-                        </span>
+                        <button type = button class="fieldButton" id="@{row}@{col}">
+                        @{controller.cellToString(controller.currentPlayer,row,col)}
+                        </button>
                     }
                     </div>
                     <div class="clear"></div>
@@ -70,30 +63,46 @@
                 @controller.state
                 </p>
                 @if(controller.state == State.INSERTING_NAME_1) {
-                    <form action="@controllers.routes.NinjaController.player("Helen")">
-                        Name: <input type="text" name="name">
-                        <input value="Enter" type="submit">
-                    </form>
+                            <div class="form-group">
+                                <label for="input-name1">Name</label>
+                                <input type="text" class="form-control" id="input-name1" placeholder="Player1">
+                            </div>
+                            <button class="btn btn-primary" id="btn-confirmName1">
+                                add Player
+                            </button>
+
                 }
 
                 @if(controller.state == State.INSERTING_NAME_2) {
-                    <form action="@controllers.routes.NinjaController.player("Julia")">
-                        Name: <input id="nameField" type="text" name="name">
-                        <input value="Enter" type="submit">
-                    </form>
+                        <div class="form-group">
+                            <label for="input-name2">Name</label>
+                            <input type="text" class="form-control" id="input-name2" placeholder="Player2">
+                        </div>
+                        <button class="btn btn-primary" id="btn-confirmName2">
+                            add Player
+                        </button>
+
                 }
 
                 @if(controller.state == State.SET_FLAG_1) {
-                    <form action="@controllers.routes.NinjaController.setFlag(0, 0)">
-                        setFlag: <input id="nameField" type="text" name="name">
-                        <input value="Enter" type="submit">
+                    <form>
+                        <div class="form-group">
+                            <label for="flag1-input">Set your flag, Player 1</label>
+                            <input type="text" class="form-control" id="flag1-input">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" id="btn-flag1">Set Flag!</button>
                     </form>
                 }
 
                 @if(controller.state == State.SET_FLAG_2) {
-                    <form action="@controllers.routes.NinjaController.setFlag(5, 5)">
-                        setFlag: <input id="nameField" type="text" name="name">
-                        <input value="Enter" type="submit">
+                    <form>
+                        <div class="form-group">
+                            <label for="flag2-input">Set your flag, Player 2</label>
+                            <input type="text" class="form-control" id="flag2-input">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" id="btn-flag2">Set Flag!</button>
                     </form>
                 }
 
@@ -114,5 +123,6 @@
             </div>
 
         </div>
+
 }
 

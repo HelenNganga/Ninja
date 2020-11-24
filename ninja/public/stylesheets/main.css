@@ -50,3 +50,7 @@ h2{font-family: Gabriola; font-weight: bold; color: darkslategray}
     flex: 1 1 auto;
 }
 .rating-card{width: 40rem; margin-left: 3vw; margin-top: 3vw}
+
+
+/*Game*/
+.fieldButton{width: 2vw; height: 2vw}

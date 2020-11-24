@@ -10,8 +10,8 @@ GET     /                                   controllers.NinjaController.home
 GET     /highscore                          controllers.NinjaController.highscore
 GET     /game                               controllers.NinjaController.ninja
 GET     /about                              controllers.NinjaController.about
-GET     /player1/:player                    controllers.NinjaController.player(player: String)
-GET     /player2/:player                    controllers.NinjaController.player(player: String)
+GET     /addPlayer1/:player                 controllers.NinjaController.player(player: String)
+GET     /addPlayer2/:player                 controllers.NinjaController.player(player: String)
 GET     /setFlag/:row:col                   controllers.NinjaController.setFlag(row: Int, col:Int)
 GET     /walk/:row:col:d                    controllers.NinjaController.walk(row: Int, col:Int, d:String)
 GET     /f                                  controllers.NinjaController.changeTurn()

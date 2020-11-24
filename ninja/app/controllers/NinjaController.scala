@@ -28,8 +28,8 @@ class NinjaController @Inject()(cc: ControllerComponents) extends AbstractContro
   }
 
 
-  def player(player: String)= Action{
-    gameController.setName(player)
+  def player(name: String)= Action{
+    gameController.setName(name)
     Ok(views.html.ninja(gameController))
   }
 
