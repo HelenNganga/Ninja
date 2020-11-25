@@ -48,12 +48,7 @@
             @for(row <- 0 until size) {
                 <div class="house size@size">
                 @for(col <- 0 until size) {
-                    <button type = button class="fieldButton" id="@{
-                        row
-                    } @{
-                        col
-                    }
-                    ">
+                    <button type = button class="fieldButton" id="@{row}@{col}">
                     @{
                         controller.cellToString(controller.currentPlayer, row, col)
                     }
@@ -68,9 +63,9 @@
 
         <div id="actionButtons">
             <p id="infoText">
-            @controller.state
             </p>
             @if(controller.state == State.INSERTING_NAME_1) {
+                <p>Player1 insert your Name</p>
                 <div class="form-group">
                     <label for="input-name1">Name</label>
                     <input type="text" class="form-control" id="input-name1" placeholder="Player1">
@@ -82,6 +77,7 @@
             }
 
             @if(controller.state == State.INSERTING_NAME_2) {
+                <p>Player2 insert your Name</p>
                 <div class="form-group">
                     <label for="input-name2">Name</label>
                     <input type="text" class="form-control" id="input-name2" placeholder="Player2">
@@ -92,60 +88,45 @@
 
             }
 
-            @if(controller.state == State.SET_FLAG_1) {
+           @if(controller.state == State.SET_FLAG_1){
+               <p> @controller.currentPlayer.name set your Flag</p>
+               <form action="@controllers.routes.NinjaController.setFlag(0,0)">
+                   setFlag: <input id="nameField" type="text">
+                   <input value="Enter" type="submit">
+               </form>
+           }
 
-                <form>
-                    <div class="form-group">
-                        <label for="select-row-flag">select row</label>
-                        <select class="form-control" id="row-select">
-                            <option>0</option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                        </select>
-                    </div>
-                </form>
-
-                <form>
-                    <div class="form-group">
-                        <label for="select-col-flag">select col</label>
-                        <select class="form-control" id="col-select">
-                            <option>0</option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn btn-primary" id="btn-flag1">Set Flag 1!</button>
-                </form>
-            }
-
-            @if(controller.state == State.SET_FLAG_2) {
-                <form>
-                    <div class="form-group">
-                        <label for="flag2-input">Set your flag, Player 2</label>
-                        <input type="text" class="form-control" id="flag2-input">
-                    </div>
-
-                    <button type="submit" class="btn btn-primary" id="btn-flag2">Set Flag!</button>
-                </form>
-            }
+           @if(controller.state == State.SET_FLAG_2){
+               <p> @controller.currentPlayer.name set your Flag</p>
+               <form action="@controllers.routes.NinjaController.setFlag(5,5)">
+                   setFlag: <input id="nameField" type="text">
+                   <input value="Enter" type="submit">
+                       <p> @controller.currentPlayer.name set your Flag</p>
+               </form>
+           }
 
             @if(controller.state == State.TURN) {
-                <form action="@controllers.routes.NinjaController.walk(1, 0, "d")">
-                    Walk: <input id="nameField" type="text">
-                    <input value="Enter" type="submit">
+                <p> @controller.currentPlayer.name click on a Ninja and set your direction</p>
+                <form>
+                    <div class="form-group">
+                        <label for="select-direction">select direction</label>
+                        <select class="form-control" id="direction-select">
+                            <option>Up</option>
+                            <option>Down</option>
+                            <option>Left</option>
+                            <option>Right</option>
+                        </select>
+                    </div>
                 </form>
+                <button class="btn btn-primary" id="btn-turn">
+                walk
+                </button>
             }
 
             @if(controller.state == State.WALKED) {
-                <form action="@controllers.routes.NinjaController.changeTurn()">
-                    <button>next</button>
-                </form>
+                    <button class="btn btn-primary" id="btn-next">
+                        next
+                    </button>
             }
 
 

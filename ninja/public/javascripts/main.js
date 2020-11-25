@@ -7,40 +7,48 @@ if(doc2) {
     doc2.addEventListener("click", addPlayer2);
 }
 
-doc3 = document.getElementById("btn-flag1")
+doc3 = document.getElementById("btn-turn")
 if(doc3) {
-    doc3.addEventListener("click", setFlag1);
+    doc3.addEventListener("click", walk);
 }
 
+doc4 = document.getElementById("btn-next")
+if(doc4) {
+    doc4.addEventListener("click", next);
+}
+
+for(let row = 0 ; row < 6; row++){
+    for(let col = 0; col < 6; col++){
+        let tmp = row.toString().concat(col.toString())
+        let cell=document.getElementById(tmp);
+        if(cell){
+            cell.addEventListener("click", getId)
+        }
+    }
+}
 
 function addPlayer1() {
     let name = document.getElementById("input-name1").value;
-    console.log(name);
     return window.location.href = "http://localhost:9000/addPlayer1/" + name;
 }
 
 function addPlayer2() {
     let name = document.getElementById("input-name2").value;
-    console.log(name);
     return window.location.href = "http://localhost:9000/addPlayer2/" + name;
 }
 
-function addFlag1(){
-    let flag = document.getElementById("flag1-input").value;
-    console.log("Flag"+flag);
-    return window.location.href = "http://localhost:9000/setFlag/00";
+let buttonId;
+function getId(){
+   return buttonId = this.id;
 }
 
-function addFlag2(){
-    let flag = document.getElementById("flag2-input").value;
-    return window.location.href = "http://localhost:9000/setFlag/55";
+function walk(){
+    let direction = document.getElementById("direction-select").value;
+    console.log(direction);
+    let dir = direction.charAt(0).toLowerCase();
+   return window.location.href = "http://localhost:9000/walk/" + buttonId + dir;
 }
 
-function setFlag1() {
-    
-    let row = document.getElementById('row-select').value;
-    let col = document.getElementById('col-select').value;
-    console.log("row:" + row, "col:" + col)
-    let route = ("http://localhost:9000/setFlag/" + row + col)
-    return window.location.href = route;
+function next(){
+    return window.location.href ="http://localhost:9000/f";
 }

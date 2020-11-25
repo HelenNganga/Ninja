@@ -26,7 +26,7 @@ h2{font-family: Gabriola; font-weight: bold; color: darkslategray}
 .checked{color: yellow}
 
 .field{border: solid 40px;
-    width: 32vw ; margin-left: 5vw;
+    width: 34vw ; margin-left: 5vw;
     background-color: gray; font-size: xx-large; color: black ; margin-bottom: 3vw; float: left}
 .game-header{color: darkslategray; text-align: center; padding-top: 3vw; font-weight: bold}
 
