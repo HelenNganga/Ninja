@@ -9,12 +9,7 @@ if(doc2) {
 
 doc3 = document.getElementById("btn-flag1")
 if(doc3) {
-    doc3.addEventListener("click", addFlag1);
-}
-
-doc4 = document.getElementById("btn-flag2")
-if(doc4) {
-    doc4.addEventListener("click", addFlag2);
+    doc3.addEventListener("click", setFlag1);
 }
 
 
@@ -39,4 +34,13 @@ function addFlag1(){
 function addFlag2(){
     let flag = document.getElementById("flag2-input").value;
     return window.location.href = "http://localhost:9000/setFlag/55";
+}
+
+function setFlag1() {
+    
+    let row = document.getElementById('row-select').value;
+    let col = document.getElementById('col-select').value;
+    console.log("row:" + row, "col:" + col)
+    let route = ("http://localhost:9000/setFlag/" + row + col)
+    return window.location.href = route;
 }

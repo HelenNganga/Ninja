@@ -1,5 +1,6 @@
 @import de.htwg.se.ninja.controller.ControllerInterface
 @import de.htwg.se.ninja.controller.component.State
+
 @(controller: ControllerInterface)
 
 
@@ -42,87 +43,115 @@
             Ninja - THE GAME
         </h1>
 
-            <div>
-                <div class="field">
-                @for(row <- 0 until size) {
-                    <div class="house size@size">
-                    @for(col <- 0 until size) {
-                        <button type = button class="fieldButton" id="@{row}@{col}">
-                        @{controller.cellToString(controller.currentPlayer,row,col)}
-                        </button>
+        <div>
+            <div class="field">
+            @for(row <- 0 until size) {
+                <div class="house size@size">
+                @for(col <- 0 until size) {
+                    <button type = button class="fieldButton" id="@{
+                        row
+                    } @{
+                        col
                     }
-                    </div>
-                    <div class="clear"></div>
+                    ">
+                    @{
+                        controller.cellToString(controller.currentPlayer, row, col)
+                    }
+                    </button>
                 }
                 </div>
-
-            </div>
-
-            <div id="actionButtons">
-                <p id="infoText">
-                @controller.state
-                </p>
-                @if(controller.state == State.INSERTING_NAME_1) {
-                            <div class="form-group">
-                                <label for="input-name1">Name</label>
-                                <input type="text" class="form-control" id="input-name1" placeholder="Player1">
-                            </div>
-                            <button class="btn btn-primary" id="btn-confirmName1">
-                                add Player
-                            </button>
-
-                }
-
-                @if(controller.state == State.INSERTING_NAME_2) {
-                        <div class="form-group">
-                            <label for="input-name2">Name</label>
-                            <input type="text" class="form-control" id="input-name2" placeholder="Player2">
-                        </div>
-                        <button class="btn btn-primary" id="btn-confirmName2">
-                            add Player
-                        </button>
-
-                }
-
-                @if(controller.state == State.SET_FLAG_1) {
-                    <form>
-                        <div class="form-group">
-                            <label for="flag1-input">Set your flag, Player 1</label>
-                            <input type="text" class="form-control" id="flag1-input">
-                        </div>
-
-                        <button type="submit" class="btn btn-primary" id="btn-flag1">Set Flag!</button>
-                    </form>
-                }
-
-                @if(controller.state == State.SET_FLAG_2) {
-                    <form>
-                        <div class="form-group">
-                            <label for="flag2-input">Set your flag, Player 2</label>
-                            <input type="text" class="form-control" id="flag2-input">
-                        </div>
-
-                        <button type="submit" class="btn btn-primary" id="btn-flag2">Set Flag!</button>
-                    </form>
-                }
-
-                @if(controller.state == State.TURN) {
-                    <form action="@controllers.routes.NinjaController.walk(1, 0, "d")">
-                        Walk: <input id="nameField" type="text">
-                        <input value="Enter" type="submit">
-                    </form>
-                }
-
-                @if(controller.state == State.WALKED) {
-                    <form action="@controllers.routes.NinjaController.changeTurn()">
-                        <button>next</button>
-                    </form>
-                }
-
-
+                <div class="clear"></div>
+            }
             </div>
 
         </div>
+
+        <div id="actionButtons">
+            <p id="infoText">
+            @controller.state
+            </p>
+            @if(controller.state == State.INSERTING_NAME_1) {
+                <div class="form-group">
+                    <label for="input-name1">Name</label>
+                    <input type="text" class="form-control" id="input-name1" placeholder="Player1">
+                </div>
+                <button class="btn btn-primary" id="btn-confirmName1">
+                    add Player
+                </button>
+
+            }
+
+            @if(controller.state == State.INSERTING_NAME_2) {
+                <div class="form-group">
+                    <label for="input-name2">Name</label>
+                    <input type="text" class="form-control" id="input-name2" placeholder="Player2">
+                </div>
+                <button class="btn btn-primary" id="btn-confirmName2">
+                    add Player
+                </button>
+
+            }
+
+            @if(controller.state == State.SET_FLAG_1) {
+
+                <form>
+                    <div class="form-group">
+                        <label for="select-row-flag">select row</label>
+                        <select class="form-control" id="row-select">
+                            <option>0</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                    </div>
+                </form>
+
+                <form>
+                    <div class="form-group">
+                        <label for="select-col-flag">select col</label>
+                        <select class="form-control" id="col-select">
+                            <option>0</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="btn-flag1">Set Flag 1!</button>
+                </form>
+            }
+
+            @if(controller.state == State.SET_FLAG_2) {
+                <form>
+                    <div class="form-group">
+                        <label for="flag2-input">Set your flag, Player 2</label>
+                        <input type="text" class="form-control" id="flag2-input">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" id="btn-flag2">Set Flag!</button>
+                </form>
+            }
+
+            @if(controller.state == State.TURN) {
+                <form action="@controllers.routes.NinjaController.walk(1, 0, "d")">
+                    Walk: <input id="nameField" type="text">
+                    <input value="Enter" type="submit">
+                </form>
+            }
+
+            @if(controller.state == State.WALKED) {
+                <form action="@controllers.routes.NinjaController.changeTurn()">
+                    <button>next</button>
+                </form>
+            }
+
+
+        </div>
+
+    </div>
 
 }
 
