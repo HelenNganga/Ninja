@@ -18,6 +18,9 @@ class NinjaController @Inject()(cc: ControllerComponents) extends AbstractContro
 
   def ninjaAsText = NinjaGame.tui.stateToString()
 
+  def state = Action {
+    Ok(controller.state.toString)
+  }
 
   def home = Action {
     Ok(views.html.home())
