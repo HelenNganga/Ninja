@@ -3,18 +3,18 @@ package controllers
 import javax.inject._
 import play.api.mvc._
 import de.htwg.se.ninja.NinjaGame
-import de.htwg.se.ninja.controller.component.State
+import de.htwg.se.ninja.controller.ControllerInterface
 import de.htwg.se.ninja.model.component.component.component.component.Direction
-
 
 
 /**
  * This controller creates an `Action` to handle HTTP requests to the
  * application's home page.
  */
+
 @Singleton
 class NinjaController @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
-  val gameController = NinjaGame.controller
+  val controller: ControllerInterface = NinjaGame.controller
 
   def ninjaAsText = NinjaGame.tui.stateToString()
 
@@ -23,32 +23,38 @@ class NinjaController @Inject()(cc: ControllerComponents) extends AbstractContro
     Ok(views.html.home())
   }
 
+  def ninja = Action {
+    Ok(views.html.ninja(controller))
+  }
+
+  def about = Action {
+    Ok(views.html.index())
+  }
+
   def highscore = Action {
     Ok(views.html.highscore())
   }
 
 
-  def player(name: String)= Action{
-    gameController.setName(name)
-    Ok(views.html.ninja(gameController))
+  def player(name: String) = Action {
+    controller.setName(name)
+    Ok(controller.storeFile.toString)
   }
 
-  def setFlag(row: Int, col: Int)= Action{
-    gameController.setFlag(row,col)
-    Ok(views.html.ninja(gameController))
+  def setFlag(row: Int, col: Int) = Action {
+    controller.setFlag(row, col)
+    Ok(controller.storeFile.toString)
   }
 
-  def walk(row: Int, col: Int, d: String)= Action{
-
+  def walk(row: Int, col: Int, d: String) = Action {
     val dir = StringToDirection(d)
-    print(dir)
-    gameController.walk(row,col,dir)
-    Ok(views.html.ninja(gameController))
+    controller.walk(row, col, dir)
+    Ok(controller.storeFile.toString)
   }
 
-  def changeTurn()= Action{
-    gameController.changeTurns()
-    Ok(views.html.ninja(gameController))
+  def changeTurn() = Action {
+    controller.changeTurns()
+    Ok(controller.storeFile.toString)
   }
 
   def StringToDirection(d: String): Direction.direction = d match {
@@ -56,14 +62,9 @@ class NinjaController @Inject()(cc: ControllerComponents) extends AbstractContro
     case "l" => Direction.left
     case "u" => Direction.up
     case "d" => Direction.down
-    case _  => Direction.up }
-
-  def about = Action {
-    Ok(views.html.index())
+    case _ => Direction.up
   }
 
-  def ninja = Action {
-    Ok(views.html.ninja(gameController))
-  }
+
 
 }

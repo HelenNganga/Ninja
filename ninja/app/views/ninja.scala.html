@@ -5,153 +5,148 @@
 
 
 
-@size = @{
-    controller.desk.field.matrix.length
-}
+    @size = @{
+        controller.desk.field.matrix.length
+    }
 
-@main("HTWG Ninja") {
+    @main("HTWG Ninja") {
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="/">
-            <img class="logo" src="../assets/ninjaBlack.png" alt="ninja" width="50"/>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="/">
+                <img class="logo" src="../assets/ninjaBlack.png" alt="ninja" width="50"/>
 
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/">Home<span class="sr-only"></span></a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="/highscore">Highscore<span class="sr-only"></span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/game">Game<span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="/about">About<span class="sr-only"></span></a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">Home<span class="sr-only"></span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/highscore">Highscore<span class="sr-only"></span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/game">Game<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/about">About<span class="sr-only"></span></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
 
-    <div class="game">
-        <h1 class="game-header">
-            Ninja - THE GAME
-        </h1>
+        <div class="game">
+            <h1 class="game-header">
+                Ninja - THE GAME
+            </h1>
 
-        <div>
-            <div class="field">
-            @for(row <- 0 until size) {
-                <div class="house size@size">
-                @for(col <- 0 until size) {
-                    <button type = button class="fieldButton" id="@{
-                        row
-                    } @{
-                        col
+            <div>
+                <div class="field">
+                @for(row <- 0 until size) {
+                    <div class="house size@size">
+                    @for(col <- 0 until size) {
+                        <button type = button class="fieldButton" id="@{
+                            row
+                        } @{
+                            col
+                        }
+                        ">
+                        @{
+                            controller.cellToString(controller.currentPlayer, row, col)
+                        }
+                        </button>
                     }
-                    ">
-                    @{
-                        controller.cellToString(controller.currentPlayer, row, col)
-                    }
-                    </button>
+                    </div>
+                    <div class="clear"></div>
                 }
                 </div>
-                <div class="clear"></div>
-            }
+
+            </div>
+
+            <div id="actionButtons">
+                <p id="infoText">
+                @controller.state
+                </p>
+
+                <div id="interaction">
+                    Insert Name jquery
+                </div>
+
+
+                @if(controller.state == State.INSERTING_NAME_2) {
+                    <div class="form-group">
+                        <label for="input-name2">Name</label>
+                        <input type="text" class="form-control" id="input-name2" placeholder="Player2">
+                    </div>
+                    <button class="btn btn-primary" id="btn-confirmName2">
+                        add Player
+                    </button>
+
+                }
+
+                @if(controller.state == State.SET_FLAG_1) {
+
+                    <form>
+                        <div class="form-group">
+                            <label for="select-row-flag">select row</label>
+                            <select class="form-control" id="row-select">
+                                <option>0</option>
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                            </select>
+                        </div>
+                    </form>
+
+                    <form>
+                        <div class="form-group">
+                            <label for="select-col-flag">select col</label>
+                            <select class="form-control" id="col-select">
+                                <option>0</option>
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary" id="btn-flag1">Set Flag 1!</button>
+                    </form>
+                }
+
+                @if(controller.state == State.SET_FLAG_2) {
+                    <form>
+                        <div class="form-group">
+                            <label for="flag2-input">Set your flag, Player 2</label>
+                            <input type="text" class="form-control" id="flag2-input">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" id="btn-flag2">Set Flag!</button>
+                    </form>
+                }
+
+                @if(controller.state == State.TURN) {
+                    <form action="@controllers.routes.NinjaController.walk(1, 0, "d")">
+                        Walk: <input id="nameField" type="text">
+                        <input value="Enter" type="submit">
+                    </form>
+                }
+
+                @if(controller.state == State.WALKED) {
+                    <form action="@controllers.routes.NinjaController.changeTurn()">
+                        <button>next</button>
+                    </form>
+                }
+
+
             </div>
 
         </div>
 
-        <div id="actionButtons">
-            <p id="infoText">
-            @controller.state
-            </p>
-            @if(controller.state == State.INSERTING_NAME_1) {
-                <div class="form-group">
-                    <label for="input-name1">Name</label>
-                    <input type="text" class="form-control" id="input-name1" placeholder="Player1">
-                </div>
-                <button class="btn btn-primary" id="btn-confirmName1">
-                    add Player
-                </button>
-
-            }
-
-            @if(controller.state == State.INSERTING_NAME_2) {
-                <div class="form-group">
-                    <label for="input-name2">Name</label>
-                    <input type="text" class="form-control" id="input-name2" placeholder="Player2">
-                </div>
-                <button class="btn btn-primary" id="btn-confirmName2">
-                    add Player
-                </button>
-
-            }
-
-            @if(controller.state == State.SET_FLAG_1) {
-
-                <form>
-                    <div class="form-group">
-                        <label for="select-row-flag">select row</label>
-                        <select class="form-control" id="row-select">
-                            <option>0</option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                        </select>
-                    </div>
-                </form>
-
-                <form>
-                    <div class="form-group">
-                        <label for="select-col-flag">select col</label>
-                        <select class="form-control" id="col-select">
-                            <option>0</option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn btn-primary" id="btn-flag1">Set Flag 1!</button>
-                </form>
-            }
-
-            @if(controller.state == State.SET_FLAG_2) {
-                <form>
-                    <div class="form-group">
-                        <label for="flag2-input">Set your flag, Player 2</label>
-                        <input type="text" class="form-control" id="flag2-input">
-                    </div>
-
-                    <button type="submit" class="btn btn-primary" id="btn-flag2">Set Flag!</button>
-                </form>
-            }
-
-            @if(controller.state == State.TURN) {
-                <form action="@controllers.routes.NinjaController.walk(1, 0, "d")">
-                    Walk: <input id="nameField" type="text">
-                    <input value="Enter" type="submit">
-                </form>
-            }
-
-            @if(controller.state == State.WALKED) {
-                <form action="@controllers.routes.NinjaController.changeTurn()">
-                    <button>next</button>
-                </form>
-            }
-
-
-        </div>
-
-    </div>
-
-}
+    }
 
