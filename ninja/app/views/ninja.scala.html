@@ -70,22 +70,16 @@
                 <p id="infoText">
                 @controller.state
                 </p>
+                <p>@controller.currentPlayer.name</p>
 
-                <div id="interaction">
-                    Insert Name jquery
+                <div id="player1-add">
+                    <!--Insert Name1 jquery-->
                 </div>
 
+                <div id="player2-add">
+                    <!--Insert Name2 jquery-->
+                </div>
 
-                @if(controller.state == State.INSERTING_NAME_2) {
-                    <div class="form-group">
-                        <label for="input-name2">Name</label>
-                        <input type="text" class="form-control" id="input-name2" placeholder="Player2">
-                    </div>
-                    <button class="btn btn-primary" id="btn-confirmName2">
-                        add Player
-                    </button>
-
-                }
 
                 @if(controller.state == State.SET_FLAG_1) {
 

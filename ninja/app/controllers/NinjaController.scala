@@ -38,7 +38,6 @@ class NinjaController @Inject()(cc: ControllerComponents) extends AbstractContro
     Ok(views.html.highscore())
   }
 
-
   def player(name: String) = Action {
     controller.setName(name)
     Ok(controller.storeFile.toString)

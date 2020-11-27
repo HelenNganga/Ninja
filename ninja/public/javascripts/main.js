@@ -7,6 +7,9 @@ let game = {
 };
 const defaultGame = game;
 
+$(".game").append(initButtons())
+
+
 
 function addPlayer1() {
     let div = $('<div/>', {
@@ -31,20 +34,52 @@ function addPlayer1() {
             let name = $("#input-name1").val();
             $.ajax({
                 method: "GET",
-                url: "/addPlayer1/" + name,
+                url: "http://localhost:9000/addPlayer1/" + name,
                 dataType: "json",
                 success: result => update(result)
             })
         }
     });
 
-    $("#interaction").empty();
-    $("#interaction").append(div);
-    $("#interaction").append(btnConfirmName1);
+    $("#player1-add").empty();
+    $("#player1-add").append(div);
+    $("#player1-add").append(btnConfirmName1);
 }
 
+function addPlayer2() {
+    let div = $('<div/>', {
+        'class': 'form-group',
+    });
+    div.append($('<label/>', {
+        for: 'input-name2',
+        text: 'Name'
+    }));
+    div.append($('<input/>', {
+        id: 'input-name2',
+        placeholder: 'Player2',
+        type: 'text',
+        class: 'form-control'
+    }));
 
+    let btnConfirmName2 = $('<button/>', {
+        text: 'Add Player',
+        id: 'btnConfirmName2',
+        "class": "btn btn-primary",
+        click: () => {
+            let name = $("#input-name2").val();
+            $.ajax({
+                method: "GET",
+                url: "http://localhost:9000/addPlayer2/" + name,
+                dataType: "json",
+                success: result => update(result)
+            })
+        }
+    });
 
+    $("#player2-add").empty();
+    $("#player2-add").append(div);
+    $("#player2-add").append(btnConfirmName2);
+}
 
 function initButtons() {
     $.ajax({
@@ -54,7 +89,10 @@ function initButtons() {
         success: result => {
             switch (result) {
                 case "INSERTING_NAME_1":
-                    addPlayer1();
+                   game.append(addPlayer1());
+                    break;
+                case "INSERTING_NAME_2":
+                    game.append(addPlayer2());
                     break;
             }
         }
@@ -80,11 +118,7 @@ if (doc3) {
 }
 
 
-function addPlayer2() {
-    let name = document.getElementById("input-name2").value;
-    console.log(name);
-    return window.location.href = "http://localhost:9000/addPlayer2/" + name;
-}
+
 
 function addFlag1() {
     let flag = document.getElementById("flag1-input").value;
