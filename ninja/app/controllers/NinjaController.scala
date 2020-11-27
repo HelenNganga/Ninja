@@ -19,7 +19,8 @@ class NinjaController @Inject()(cc: ControllerComponents) extends AbstractContro
   def ninjaAsText = NinjaGame.tui.stateToString()
 
   def state = Action {
-    Ok(controller.state.toString)
+    System.out.println("LOG:" + controller.state.toString)
+    Ok(controller.toJson)
   }
 
   def home = Action {
@@ -40,7 +41,7 @@ class NinjaController @Inject()(cc: ControllerComponents) extends AbstractContro
 
   def player(name: String) = Action {
     controller.setName(name)
-    Ok(controller.storeFile.toString)
+    Ok(controller.toJson)
   }
 
   def setFlag(row: Int, col: Int) = Action {
