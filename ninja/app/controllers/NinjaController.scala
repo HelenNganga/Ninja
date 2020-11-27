@@ -20,7 +20,7 @@ class NinjaController @Inject()(cc: ControllerComponents) extends AbstractContro
 
   def state = Action {
     System.out.println("LOG:" + controller.state.toString)
-    Ok(controller.toJson)
+    Ok(controller.state.toString)
   }
 
   def home = Action {
@@ -41,6 +41,7 @@ class NinjaController @Inject()(cc: ControllerComponents) extends AbstractContro
 
   def player(name: String) = Action {
     controller.setName(name)
+    System.out.println("JSON:" + controller.toJson.toString)
     Ok(controller.toJson)
   }
 
