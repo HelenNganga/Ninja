@@ -19,7 +19,6 @@ class NinjaController @Inject()(cc: ControllerComponents) extends AbstractContro
   def ninjaAsText = NinjaGame.tui.stateToString()
 
   def state = Action {
-    System.out.println("LOG:" + controller.state.toString)
     Ok(controller.state.toString)
   }
 
@@ -41,13 +40,12 @@ class NinjaController @Inject()(cc: ControllerComponents) extends AbstractContro
 
   def player(name: String) = Action {
     controller.setName(name)
-    System.out.println("JSON:" + controller.toJson.toString)
     Ok(controller.toJson)
   }
 
   def setFlag(row: Int, col: Int) = Action {
     controller.setFlag(row, col)
-    Ok(controller.storeFile.toString)
+    Ok(controller.toJson)
   }
 
   def walk(row: Int, col: Int, d: String) = Action {
@@ -69,6 +67,7 @@ class NinjaController @Inject()(cc: ControllerComponents) extends AbstractContro
     case _ => Direction.up
   }
 
-
-
+  def json(): Action[AnyContent] = Action {
+    Ok(controller.toJson.toString())
+  }
 }

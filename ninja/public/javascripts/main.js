@@ -1,3 +1,22 @@
+let buttonId;
+
+function setButtonId() {
+    console.log(this.id)
+    return buttonId = this.id;
+}
+
+function initField() {
+    for (let row = 0; row < 6; row++) {
+        for (let col = 0; col < 6; col++) {
+            let tmp = row.toString().concat(col.toString())
+            let cell = document.getElementById(tmp);
+            if (cell) {
+                cell.addEventListener("click", setButtonId())
+            }
+        }
+    }
+}
+
 let game = {
     desk: {
         field: [],
@@ -7,9 +26,17 @@ let game = {
 };
 const defaultGame = game;
 
-$(".game").append(initButtons())
+function showCurrentState() {
+    $.ajax({
+        method: "GET",
+        url: "http://localhost:9000/state",
+        dataType: "text",
 
-
+        success: result => {
+            $("#state").text(result);
+        }
+    });
+}
 
 function addPlayer1() {
     let div = $('<div/>', {
@@ -17,7 +44,7 @@ function addPlayer1() {
     });
     div.append($('<label/>', {
         for: 'input-name1',
-        text: 'Name'
+        text: 'Player1, insert your name'
     }));
     div.append($('<input/>', {
         id: 'input-name1',
@@ -40,10 +67,8 @@ function addPlayer1() {
             })
         }
     });
+    $("#interaction").empty().append(div).append(btnConfirmName1);
 
-    $("#player1-add").empty();
-    $("#player1-add").append(div);
-    $("#player1-add").append(btnConfirmName1);
 }
 
 function addPlayer2() {
@@ -52,7 +77,7 @@ function addPlayer2() {
     });
     div.append($('<label/>', {
         for: 'input-name2',
-        text: 'Name'
+        text: 'Player2, insert your name'
     }));
     div.append($('<input/>', {
         id: 'input-name2',
@@ -75,24 +100,134 @@ function addPlayer2() {
             })
         }
     });
+    $("#interaction").empty().append(div).append(btnConfirmName2);
+}
 
-    $("#player2-add").empty();
-    $("#player2-add").append(div);
-    $("#player2-add").append(btnConfirmName2);
+function setFlag1() {
+    let div = $('<div/>', {
+        'class': 'form-group',
+    });
+    div.append($('<p/>', {
+        for: 'label-flag1',
+        text: 'Player1, set your Flag!'
+    }));
+
+    let confirmFlag1 = $('<button/>', {
+        text: 'Set Flag!',
+        id: 'btn-flag1',
+        "class": "btn btn-primary",
+        click: () => {
+            console.log(buttonId)
+            $.ajax({
+                method: "GET",
+                url: "http://localhost:9000/setFlag/" + '00',
+                dataType: "json",
+                success: result => update(result)
+            })
+        }
+    });
+    $("#interaction").empty().append(div).append(confirmFlag1);
+}
+
+function setFlag2() {
+    let div = $('<div/>', {
+        'class': 'form-group',
+    });
+    div.append($('<p/>', {
+        for: 'label-flag2',
+        text: 'PLayer2, set your Flag!'
+    }));
+
+    let confirmFlag2 = $('<button/>', {
+        text: 'Set Flag!',
+        id: 'btn-flag2',
+        "class": "btn btn-primary",
+        click: () => {
+            console.log(buttonId)
+            $.ajax({
+                method: "GET",
+                url: "http://localhost:9000/setFlag/" + '55',
+                dataType: "json",
+                success: result => update(result)
+            })
+        }
+    });
+    $("#interaction").empty().append(div).append(confirmFlag2);
+}
+
+function createNextButtons() {
+    let btnNext = $('<button/>', {
+        text: 'Next Player',
+        id: 'btnNext',
+        "class": "btn btn-primary",
+        click: () => {
+            $.ajax({
+                method: "GET",
+                url: "http://localhost:9000/f",
+                dataType: "json",
+                success: () => update(defaultGame)
+            })
+        }
+    });
+
+    $("#interaction").empty().append(btnNext);
+}
+
+function walk() {
+    let div = $('<div/>', {
+        'class': 'form-group',
+    });
+    div.append($('<p/>', {
+        for: 'direction-label',
+        text: 'Choose a direction!'
+    }));
+    div.append($('<input/>', {
+        id: 'direction-input',
+        type: 'text',
+        class: 'form-control'
+    }));
+
+    let btnWalk = $('<button/>', {
+        text: 'Walk',
+        id: 'btn-walk',
+        "class": "btn btn-primary",
+        click: () => {
+            let direction = $("#direction-input").val();
+            $.ajax({
+                method: "GET",
+                url: "http://localhost:9000/walk/" + buttonId + direction,
+                dataType: "json",
+                success: result => update(result)
+            })
+        }
+    });
+    $("#interaction").empty().append(div).append(btnWalk);
 }
 
 function initButtons() {
     $.ajax({
         method: "GET",
-        url: "/state",
+        url: "http://localhost:9000/state",
         dataType: "text",
         success: result => {
             switch (result) {
                 case "INSERTING_NAME_1":
-                   game.append(addPlayer1());
+                    $(".game").append(addPlayer1());
                     break;
                 case "INSERTING_NAME_2":
-                    game.append(addPlayer2());
+                    $(".game").append(addPlayer2());
+                    break;
+                case "SET_FLAG_1":
+                    $(".game").append(setFlag1());
+                    break;
+                case "SET_FLAG_2":
+                    $(".game").append(setFlag2());
+                    break;
+                case "TURN":
+                    $(".game").append(walk());
+                    break;
+                case "WALKED":
+                    $(".game").append(createNextButtons());
                     break;
             }
         }
@@ -103,39 +238,23 @@ function initButtons() {
 function update(result) {
     console.log(result);
     game = result;
+    showCurrentState();
     initButtons();
+    setFlag1();
 }
 
-
-doc2 = document.getElementById("btn-confirmName2")
-if (doc2) {
-    doc2.addEventListener("click", addPlayer2);
+function init() {
+    $.ajax({
+        method: "GET",
+        url: "/json",
+        dataType: "json",
+        success: result => update(result)
+    });
 }
 
-doc3 = document.getElementById("btn-flag1")
-if (doc3) {
-    doc3.addEventListener("click", setFlag1);
-}
-
-
-
-
-function addFlag1() {
-    let flag = document.getElementById("flag1-input").value;
-    console.log("Flag" + flag);
-    return window.location.href = "http://localhost:9000/setFlag/00";
-}
-
-function addFlag2() {
-    let flag = document.getElementById("flag2-input").value;
-    return window.location.href = "http://localhost:9000/setFlag/55";
-}
-
-function setFlag1() {
-
-    let row = document.getElementById('row-select').value;
-    let col = document.getElementById('col-select').value;
-    console.log("row:" + row, "col:" + col)
-    let route = ("http://localhost:9000/setFlag/" + row + col)
-    return window.location.href = route;
-}
+$(document).ready(function () {
+    console.log('The DOM is ready!');
+    init();
+    initField();
+    initButtons();
+});

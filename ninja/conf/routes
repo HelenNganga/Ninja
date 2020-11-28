@@ -17,6 +17,7 @@ GET        /walk/:row:col:d           controllers.NinjaController.walk(row: Int,
 GET        /f                         controllers.NinjaController.changeTurn()
 
 GET        /state                     controllers.NinjaController.state
+GET        /json                      controllers.NinjaController.json
 
 
 

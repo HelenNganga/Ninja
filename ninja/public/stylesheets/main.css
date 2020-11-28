@@ -1,51 +1,153 @@
+h1 {
+    font-family: Gabriola;
+    font-size: 5em
+}
 
+h2 {
+    font-family: Gabriola;
+    font-weight: bold;
+    color: darkslategray
+}
 
-.nav-link{font-weight: bold; font-size: large}
+/*---------- NAVBAR ----------*/
+.nav-link {
+    font-weight: bold;
+    font-size: large
+}
 
-.about-header{color: darkslategray; text-align: center;padding-top: 3vw; font-weight: bold}
+/*---------- HOME ----------*/
+.home {
+    background-image: url("tori.jpg")
+}
 
-h1{font-family: Gabriola ; font-size: 5em}
-h2{font-family: Gabriola; font-weight: bold; color: darkslategray}
+.home-header {
+    text-align: center;
+    color: darkslategray;
+    padding-top: 2vw
+}
 
-.about{background-image: url("tori.jpg")}
-.dragon{height: 200px}
-.rules-title{padding-left:  3vw}
-.rules-grid{margin: 3vw}
-.history{width: 40%; text-align: justify; margin: 3vw}
-.btn-secondary{text-align: center}
+.card-img-top {
+    height: 15vw;
+}
 
+.card {
+    width: 16rem
+}
 
-.game{height: 100%; margin-bottom: auto;}
-
-.highscore-header{text-align: center; color: darkslategray; padding-top: 2vw}
-
-.home{background-image: url("tori.jpg")}
-.home-header{text-align: center; color: darkslategray; padding-top: 2vw}
-.card-img-top{height: 15vw;}
-.card{width: 16rem}
-.checked{color: yellow}
-
-.field{border: solid 40px;
-    width: 32vw ; margin-left: 5vw;
-    background-color: gray; font-size: xx-large; color: black ; margin-bottom: 3vw; float: left}
-.game-header{color: darkslategray; text-align: center; padding-top: 3vw; font-weight: bold}
-
-.ninja-img{height: 10vw; text-align: center; margin-bottom: 10vw; alignment: center;
-    margin-left: auto; margin-right: auto; display: block }
-
-#actionButtons{font-family: Gabriola; color: darkslategray;
-    font-weight: bold; font-size: xx-large; float: right; margin-top: 5vw; margin-right: 15vw}
-
-/*#infoText{font-family: Gabriola; color: darkslategray; font-weight: bold; font-size: xx-large;*/
-/*    float: right;}*/
-
+.checked {
+    color: yellow
+}
 
 .card-horizontal {
     display: flex;
     flex: 1 1 auto;
 }
-.rating-card{width: 40rem; margin-left: 3vw; margin-top: 3vw}
+
+.rating-card {
+    width: 40rem;
+    margin-left: 3vw;
+    margin-top: 3vw
+}
+
+/*---------- GAME ----------*/
+.game {
+    height: 100%;
+    margin-bottom: auto;
+}
+
+.game-header {
+    color: darkslategray;
+    text-align: center;
+    padding-top: 3vw;
+    font-weight: bold
+}
+
+.field {
+    border: solid 40px #212729;
+    background-color: #212729;
+    width: 410px;
+    margin-left: 10vw;
+    color: black;
+    margin-bottom: 3vw;
+    float: left
+}
+
+.fieldButton {
+    width: 50px;
+    height: 50px;
+    font-size: medium;
+}
+
+#interaction {
+    font-family: Gabriola;
+    color: darkslategray;
+    font-weight: bold;
+    font-size: xx-large;
+    float: right;
+    margin-top: 5vw;
+    float: left
+}
+
+#current-player {
+    font-family: Gabriola;
+    color: darkslategray;
+    font-weight: bold;
+    font-size: xx-large;
+    float: right;
+    margin-top: 5vw;
+    margin-left: 10vw;
+    float: left;
+}
+
+/*---------- HIGHSCORE ----------*/
+.highscore-header {
+    text-align: center;
+    color: darkslategray;
+    padding-top: 2vw
+}
 
 
-/*Game*/
-.fieldButton{width: 4vw; height: 4vw; font-size: medium}
+/*---------- ABOUT ----------*/
+.about {
+    background-image: url("tori.jpg")
+}
+
+.about-header {
+    color: darkslategray;
+    text-align: center;
+    padding-top: 3vw;
+    font-weight: bold
+}
+
+.dragon {
+    height: 200px
+}
+
+.rules-title {
+    padding-left: 3vw
+}
+
+.rules-grid {
+    margin: 3vw
+}
+
+.history {
+    width: 40%;
+    text-align: justify;
+    margin: 3vw
+}
+
+.btn-secondary {
+    text-align: center
+}
+
+
+.ninja-img {
+    height: 10vw;
+    text-align: center;
+    margin-bottom: 10vw;
+    alignment: center;
+    margin-left: auto;
+    margin-right: auto;
+    display: block
+}
