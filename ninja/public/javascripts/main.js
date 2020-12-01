@@ -1,42 +1,53 @@
 let buttonId;
+let currentPlayer;
 
 function setButtonId() {
-    console.log(this.id)
     return buttonId = this.id;
 }
 
+function getCurrentPlayer() {
+        if (game.desk.field.player1 && game.desk.field.player1.state == 'go') {
+            return currentPlayer = '1';
+        } else {
+            return currentPlayer = '2';
+        }
+}
+
 function initField() {
+    let counter = 0;
+    getCurrentPlayer();
+    console.log(currentPlayer)
     for (let row = 0; row < 6; row++) {
         for (let col = 0; col < 6; col++) {
             let tmp = row.toString().concat(col.toString())
             let cell = document.getElementById(tmp);
             if (cell) {
-                cell.addEventListener("click", setButtonId())
+                if (game.desk.field[counter].cell.ninja == "") {
+                    cell.innerHTML = ""
+                } else if (game.desk.field[counter].cell.ninja.playerId == currentPlayer) {
+                    cell.innerHTML = game.desk.field[counter].cell.ninja.playerId + game.desk.field[counter].cell.ninja.weapon;
+
+                }
+                else {
+                    cell.innerHTML ="xx";
+                }
+                cell.addEventListener("click", setButtonId)
             }
+            counter++;
         }
     }
 }
 
 let game = {
     desk: {
-        field: [],
+        field: {},
         player1: [],
         player2: [],
-    }
+    },
+    state: String,
 };
+
 const defaultGame = game;
-
-function showCurrentState() {
-    $.ajax({
-        method: "GET",
-        url: "http://localhost:9000/state",
-        dataType: "text",
-
-        success: result => {
-            $("#state").text(result);
-        }
-    });
-}
 
 function addPlayer1() {
     let div = $('<div/>', {
@@ -68,7 +79,6 @@ function addPlayer1() {
         }
     });
     $("#interaction").empty().append(div).append(btnConfirmName1);
-
 }
 
 function addPlayer2() {
@@ -117,10 +127,9 @@ function setFlag1() {
         id: 'btn-flag1',
         "class": "btn btn-primary",
         click: () => {
-            console.log(buttonId)
             $.ajax({
                 method: "GET",
-                url: "http://localhost:9000/setFlag/" + '00',
+                url: "http://localhost:9000/setFlag/" + buttonId,
                 dataType: "json",
                 success: result => update(result)
             })
@@ -143,10 +152,9 @@ function setFlag2() {
         id: 'btn-flag2',
         "class": "btn btn-primary",
         click: () => {
-            console.log(buttonId)
             $.ajax({
                 method: "GET",
-                url: "http://localhost:9000/setFlag/" + '55',
+                url: "http://localhost:9000/setFlag/" + buttonId,
                 dataType: "json",
                 success: result => update(result)
             })
@@ -165,7 +173,7 @@ function createNextButtons() {
                 method: "GET",
                 url: "http://localhost:9000/f",
                 dataType: "json",
-                success: () => update(defaultGame)
+                success: result => update(result)
             })
         }
     });
@@ -234,13 +242,11 @@ function initButtons() {
     });
 }
 
-
 function update(result) {
     console.log(result);
     game = result;
-    showCurrentState();
     initButtons();
-    setFlag1();
+    initField();
 }
 
 function init() {
@@ -255,6 +261,6 @@ function init() {
 $(document).ready(function () {
     console.log('The DOM is ready!');
     init();
-    initField();
     initButtons();
+    initField();
 });

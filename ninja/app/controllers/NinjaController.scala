@@ -22,6 +22,10 @@ class NinjaController @Inject()(cc: ControllerComponents) extends AbstractContro
     Ok(controller.state.toString)
   }
 
+  def currentPlayer = Action {
+    Ok(controller.currentPlayer.id.toString)
+  }
+
   def home = Action {
     Ok(views.html.home())
   }
