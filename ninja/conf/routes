@@ -15,8 +15,6 @@ GET        /addPlayer2/:player        controllers.NinjaController.player(player:
 GET        /setFlag/:row:col          controllers.NinjaController.setFlag(row: Int, col:Int)
 GET        /walk/:row:col:d           controllers.NinjaController.walk(row: Int, col:Int, d:String)
 GET        /f                         controllers.NinjaController.changeTurn()
-GET        /current                   controllers.NinjaController.currentPlayer()
-
 GET        /state                     controllers.NinjaController.state
 GET        /json                      controllers.NinjaController.json
 

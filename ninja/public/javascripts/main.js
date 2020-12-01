@@ -1,53 +1,48 @@
 let buttonId;
-let currentPlayer;
 
-function setButtonId() {
-    return buttonId = this.id;
-}
-
-function getCurrentPlayer() {
-        if (game.desk.field.player1 && game.desk.field.player1.state == 'go') {
-            return currentPlayer = '1';
-        } else {
-            return currentPlayer = '2';
-        }
-}
-
-function initField() {
-    let counter = 0;
-    getCurrentPlayer();
-    console.log(currentPlayer)
-    for (let row = 0; row < 6; row++) {
-        for (let col = 0; col < 6; col++) {
-            let tmp = row.toString().concat(col.toString())
-            let cell = document.getElementById(tmp);
-            if (cell) {
-                if (game.desk.field[counter].cell.ninja == "") {
-                    cell.innerHTML = ""
-                } else if (game.desk.field[counter].cell.ninja.playerId == currentPlayer) {
-                    cell.innerHTML = game.desk.field[counter].cell.ninja.playerId + game.desk.field[counter].cell.ninja.weapon;
-
-                }
-                else {
-                    cell.innerHTML ="xx";
-                }
-                cell.addEventListener("click", setButtonId)
-            }
-            counter++;
-        }
-    }
-}
 
 let game = {
     desk: {
         field: {},
         player1: [],
         player2: [],
-    },
-    state: String,
+    }
 };
-
 const defaultGame = game;
+
+function initF() {
+    let counter = 0;
+    let div = $('<div/>', {
+        class: 'field-container'
+    });
+
+    for (let row = 0; row < 6; row++) {
+        for (let col = 0; col < 6; col++) {
+
+            let cell = ' - '
+            let c = 'emptyButton'
+            if(game.desk.field[counter].cell.ninja.playerId) {
+                c = "fieldButton"
+                cell = game.desk.field[counter].cell.ninja.playerId + game.desk.field[counter].cell.ninja.weapon;
+            }
+
+
+            div.append($('<button/>', {
+                id: row.toString().concat(col.toString()),
+                text: cell,
+                class: c,
+                click: () => {
+                    buttonId = row.toString().concat(col.toString());
+                    console.log(buttonId)
+                }
+
+            }));
+            counter++;
+        }
+    }
+    $("#field").empty().append(div);
+
+}
 
 function addPlayer1() {
     let div = $('<div/>', {
@@ -79,6 +74,7 @@ function addPlayer1() {
         }
     });
     $("#interaction").empty().append(div).append(btnConfirmName1);
+
 }
 
 function addPlayer2() {
@@ -127,6 +123,7 @@ function setFlag1() {
         id: 'btn-flag1',
         "class": "btn btn-primary",
         click: () => {
+            console.log(buttonId)
             $.ajax({
                 method: "GET",
                 url: "http://localhost:9000/setFlag/" + buttonId,
@@ -152,6 +149,7 @@ function setFlag2() {
         id: 'btn-flag2',
         "class": "btn btn-primary",
         click: () => {
+            console.log(buttonId)
             $.ajax({
                 method: "GET",
                 url: "http://localhost:9000/setFlag/" + buttonId,
@@ -209,6 +207,7 @@ function walk() {
             })
         }
     });
+    initF()
     $("#interaction").empty().append(div).append(btnWalk);
 }
 
@@ -243,10 +242,9 @@ function initButtons() {
 }
 
 function update(result) {
-    console.log(result);
     game = result;
+    initF();
     initButtons();
-    initField();
 }
 
 function init() {
@@ -261,6 +259,6 @@ function init() {
 $(document).ready(function () {
     console.log('The DOM is ready!');
     init();
+   // initF();
     initButtons();
-    initField();
 });
