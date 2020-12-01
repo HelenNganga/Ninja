@@ -207,7 +207,6 @@ function walk() {
             })
         }
     });
-    initF()
     $("#interaction").empty().append(div).append(btnWalk);
 }
 
