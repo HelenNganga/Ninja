@@ -6,7 +6,7 @@ function setButtonId() {
 }
 
 function getCurrentPlayer() {
-        if (game.desk.field.player1 && game.desk.field.player1.state == 'go') {
+        if (game.desk.player1.state === 'go') {
             return currentPlayer = '1';
         } else {
             return currentPlayer = '2';
@@ -16,7 +16,6 @@ function getCurrentPlayer() {
 function initField() {
     let counter = 0;
     getCurrentPlayer();
-    console.log(currentPlayer)
     for (let row = 0; row < 6; row++) {
         for (let col = 0; col < 6; col++) {
             let tmp = row.toString().concat(col.toString())
