@@ -1,6 +1,5 @@
 let buttonId;
 
-
 let game = {
     desk: {
         field: {},
@@ -9,6 +8,14 @@ let game = {
     }
 };
 const defaultGame = game;
+
+function getCurrentPlayer() {
+        if (game.desk.player1.state === 'go') {
+            return currentPlayer = '1';
+        } else {
+            return currentPlayer = '2';
+        }
+}
 
 function initF() {
     let counter = 0;
@@ -171,7 +178,7 @@ function createNextButtons() {
                 method: "GET",
                 url: "http://localhost:9000/f",
                 dataType: "json",
-                success: result => update(result)
+                success: () => update(defaultGame)
             })
         }
     });
@@ -258,6 +265,6 @@ function init() {
 $(document).ready(function () {
     console.log('The DOM is ready!');
     init();
-   // initF();
+    initF();
     initButtons();
 });
