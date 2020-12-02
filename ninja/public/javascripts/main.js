@@ -1,4 +1,5 @@
 let buttonId;
+let currentPlayer;
 
 let game = {
     desk: {
@@ -11,9 +12,13 @@ const defaultGame = game;
 
 function getCurrentPlayer() {
         if (game.desk.player1.state === 'go') {
-            return currentPlayer = '1';
+            currentPlayer = '1';
+            console.log("currentPlayer: " + currentPlayer)
+            return currentPlayer;
         } else {
-            return currentPlayer = '2';
+            currentPlayer = '2';
+            console.log("currentPlayer: " + currentPlayer)
+            return currentPlayer;
         }
 }
 
@@ -26,18 +31,25 @@ function initF() {
     for (let row = 0; row < 6; row++) {
         for (let col = 0; col < 6; col++) {
 
-            let cell = ' - '
-            let c = 'emptyButton'
-            if(game.desk.field[counter].cell.ninja.playerId) {
-                c = "fieldButton"
-                cell = game.desk.field[counter].cell.ninja.playerId + game.desk.field[counter].cell.ninja.weapon;
+            let playerId = game.desk.field[counter].cell.ninja.playerId
+            let cellText = ' - '
+            let cellClass = 'emptyButton'
+            if(playerId == getCurrentPlayer()) {
+                cellClass = "fieldButton"
+                cellText = game.desk.field[counter].cell.ninja.weapon;
+            } else if (playerId && playerId != getCurrentPlayer() ) {
+                cellClass = "opponentButton";
+                cellText = "_"
+            } else {
+                cellClass = "emptyButton";
             }
+
 
 
             div.append($('<button/>', {
                 id: row.toString().concat(col.toString()),
-                text: cell,
-                class: c,
+                text: cellText,
+                class: cellClass,
                 click: () => {
                     buttonId = row.toString().concat(col.toString());
                     console.log(buttonId)
@@ -48,7 +60,6 @@ function initF() {
         }
     }
     $("#field").empty().append(div);
-
 }
 
 function addPlayer1() {
@@ -180,6 +191,7 @@ function createNextButtons() {
                 dataType: "json",
                 success: () => update(defaultGame)
             })
+            window.location.reload()
         }
     });
 
@@ -212,7 +224,9 @@ function walk() {
                 dataType: "json",
                 success: result => update(result)
             })
+            window.location.reload();
         }
+
     });
     $("#interaction").empty().append(div).append(btnWalk);
 }

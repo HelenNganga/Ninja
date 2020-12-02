@@ -65,7 +65,7 @@ h2 {
 .field {
     border: solid 40px #212729;
     background-color: #212729;
-    width: 390px;
+    width: 580px;
     margin-left: 10vw;
     color: black;
     margin-bottom: 3vw;
@@ -73,21 +73,33 @@ h2 {
 }
 
 .fieldButton {
-    width: 50px;
-    height: 50px;
+    width: 80px;
+    height: 80px;
     font-size: large;
-    color:white;
+    color:red;
     font-weight: bold;
-    background-image: url("ninjaBlack.png") ;
-    background-size: 50px;
+    background-image: url("currentPlayer.png") ;
+    background-repeat: no-repeat;
+    background-size: 80px;
+}
 
+.opponentButton {
+    width: 80px;
+    height: 80px;
+    font-size: large;
+    color:black;
+    font-weight: bold;
+    background-image: url("player.png");
+    background-repeat: no-repeat;
+    background-size: 80px;
 }
 
 .emptyButton {
-    width: 50px;
-    height: 50px;
+    width: 80px;
+    height: 80px;
     font-size: medium;
-    color: ghostwhite;
+    color: wheat;
+    background-color: wheat;
 
 }
 
