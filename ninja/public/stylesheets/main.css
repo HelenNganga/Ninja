@@ -82,6 +82,47 @@ h2 {
     background-repeat: no-repeat;
     background-size: 80px;
 }
+.fieldButtonFlag {
+    width: 80px;
+    height: 80px;
+    font-size: large;
+    color:red;
+    font-weight: bold;
+    background-image: url("caroflag.png") ;
+    background-repeat: no-repeat;
+    background-size: 80px;
+}
+.fieldButtonScissor {
+    width: 80px;
+    height: 80px;
+    font-size: large;
+    color:red;
+    font-weight: bold;
+    background-image: url("helenschere.png") ;
+    background-repeat: no-repeat;
+    background-size: 80px;
+}
+.fieldButtonPaper {
+    width: 80px;
+    height: 80px;
+    font-size: large;
+    color:red;
+    font-weight: bold;
+    background-image: url("helenpapier.png") ;
+    background-repeat: no-repeat;
+    background-size: 80px;
+}
+.fieldButtonRock {
+    width: 80px;
+    height: 80px;
+    font-size: large;
+    color:red;
+    font-weight: bold;
+    background-image: url("carostein.png") ;
+    background-repeat: no-repeat;
+    background-size: 80px;
+}
+
 
 .opponentButton {
     width: 80px;
@@ -89,7 +130,7 @@ h2 {
     font-size: large;
     color:black;
     font-weight: bold;
-    background-image: url("player.png");
+    background-image: url("ninjaDragon.png");
     background-repeat: no-repeat;
     background-size: 80px;
 }

@@ -55,8 +55,23 @@ function initF() {
             let cellText = ' - '
             let cellClass = 'emptyButton'
             if(playerId == getCurrentPlayer()) {
-                cellClass = "fieldButton"
-                cellText = game.desk.field[counter].cell.ninja.weapon;
+                switch(game.desk.field[counter].cell.ninja.weapon) {
+                    case 'f':
+                        cellClass = "fieldButtonFlag"
+                        break;
+                    case 's':
+                        cellClass= "fieldButtonScissor"
+                        break;
+                    case 'r':
+                        cellClass= "fieldButtonRock"
+                        break;
+                    case 'p':
+                        cellClass= "fieldButtonPaper"
+                        break;
+                    default:
+                        cellClass ="fieldButton"
+                        cellText = "NotWorking"
+                }
             } else if (playerId && playerId != getCurrentPlayer() ) {
                 cellClass = "opponentButton";
                 cellText = "_"
@@ -110,7 +125,6 @@ function addPlayer1() {
         }
     });
     $("#interaction").empty().append(div).append(btnConfirmName1);
-
 }
 
 function addPlayer2() {
@@ -159,7 +173,6 @@ function setFlag1() {
         id: 'btn-flag1',
         "class": "btn btn-primary",
         click: () => {
-            console.log(buttonId)
             $.ajax({
                 method: "GET",
                 url: "http://localhost:9000/setFlag/" + buttonId,
@@ -185,7 +198,6 @@ function setFlag2() {
         id: 'btn-flag2',
         "class": "btn btn-primary",
         click: () => {
-            console.log(buttonId)
             $.ajax({
                 method: "GET",
                 url: "http://localhost:9000/setFlag/" + buttonId,
@@ -244,7 +256,6 @@ function walk() {
             })
             window.location.reload();
         }
-
     });
     $("#interaction").empty().append(div).append(btnWalk);
 }
@@ -280,6 +291,7 @@ function initButtons() {
 }
 
 function update(result) {
+    console.log(result);
     game = result;
     initF();
     initButtons();
