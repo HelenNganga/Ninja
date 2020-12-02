@@ -1,5 +1,6 @@
 let buttonId;
 let currentPlayer;
+let name;
 
 let game = {
     desk: {
@@ -20,6 +21,25 @@ function getCurrentPlayer() {
             console.log("currentPlayer: " + currentPlayer)
             return currentPlayer;
         }
+}
+
+function getCurrentPlayerName() {
+    if (game.desk.player1.state === 'go') {
+        return name = game.desk.player1.name;
+    } else {
+        return name = game.desk.player2.name;
+    }
+}
+
+function initCurrentPlayer() {
+    let div = $('<div/>', {
+        'class': 'form-group',
+    });
+    div.append($('<label/>', {
+        text: getCurrentPlayerName() + " it's your turn!"
+    }));
+    $("#current-player").empty().append(div);
+
 }
 
 function initF() {
@@ -43,8 +63,6 @@ function initF() {
             } else {
                 cellClass = "emptyButton";
             }
-
-
 
             div.append($('<button/>', {
                 id: row.toString().concat(col.toString()),
@@ -265,6 +283,7 @@ function update(result) {
     game = result;
     initF();
     initButtons();
+    initCurrentPlayer();
 }
 
 function init() {
@@ -281,4 +300,5 @@ $(document).ready(function () {
     init();
     initF();
     initButtons();
+    initCurrentPlayer();
 });
