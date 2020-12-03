@@ -5,7 +5,7 @@
 
 # An example controller showing a sample home page
 
-
+GET        /websocket                  controllers.NinjaController.socket
 GET        /                          controllers.NinjaController.home
 GET        /highscore                 controllers.NinjaController.highscore
 GET        /game                      controllers.NinjaController.ninja

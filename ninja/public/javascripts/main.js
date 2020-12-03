@@ -11,14 +11,13 @@ let game = {
 };
 const defaultGame = game;
 
+
 function getCurrentPlayer() {
         if (game.desk.player1.state === 'go') {
             currentPlayer = '1';
-            console.log("currentPlayer: " + currentPlayer)
             return currentPlayer;
         } else {
             currentPlayer = '2';
-            console.log("currentPlayer: " + currentPlayer)
             return currentPlayer;
         }
 }
@@ -115,13 +114,8 @@ function addPlayer1() {
         id: 'btnConfirmName1',
         "class": "btn btn-primary",
         click: () => {
-            let name = $("#input-name1").val();
-            $.ajax({
-                method: "GET",
-                url: "http://localhost:9000/addPlayer1/" + name,
-                dataType: "json",
-                success: result => update(result)
-            })
+            let player1 = $("#input-name1").val();
+            socket.send(JSON.stringify({type: "addPlayer1", name: player1}))
         }
     });
     $("#interaction").empty().append(div).append(btnConfirmName1);
@@ -146,15 +140,10 @@ function addPlayer2() {
         text: 'Add Player',
         id: 'btnConfirmName2',
         "class": "btn btn-primary",
-        click: () => {
-            let name = $("#input-name2").val();
-            $.ajax({
-                method: "GET",
-                url: "http://localhost:9000/addPlayer2/" + name,
-                dataType: "json",
-                success: result => update(result)
-            })
-        }
+            click: () => {
+                let player2 = $("#input-name2").val();
+                socket.send(JSON.stringify({type: "addPlayer1", name: player2}))
+            }
     });
     $("#interaction").empty().append(div).append(btnConfirmName2);
 }
@@ -173,13 +162,11 @@ function setFlag1() {
         id: 'btn-flag1',
         "class": "btn btn-primary",
         click: () => {
-            $.ajax({
-                method: "GET",
-                url: "http://localhost:9000/setFlag/" + buttonId,
-                dataType: "json",
-                success: result => update(result)
-            })
+            let row = buttonId.toString().charAt(0)
+            let col = buttonId.toString().charAt(1)
+            socket.send(JSON.stringify({type: "setFlag", row: row, col: col}))
         }
+
     });
     $("#interaction").empty().append(div).append(confirmFlag1);
 }
@@ -198,12 +185,9 @@ function setFlag2() {
         id: 'btn-flag2',
         "class": "btn btn-primary",
         click: () => {
-            $.ajax({
-                method: "GET",
-                url: "http://localhost:9000/setFlag/" + buttonId,
-                dataType: "json",
-                success: result => update(result)
-            })
+            let row = buttonId.toString().charAt(0)
+            let col = buttonId.toString().charAt(1)
+            socket.send(JSON.stringify({type: "setFlag",row:row, col:col}))
         }
     });
     $("#interaction").empty().append(div).append(confirmFlag2);
@@ -248,13 +232,10 @@ function walk() {
         "class": "btn btn-primary",
         click: () => {
             let direction = $("#direction-input").val();
-            $.ajax({
-                method: "GET",
-                url: "http://localhost:9000/walk/" + buttonId + direction,
-                dataType: "json",
-                success: result => update(result)
-            })
-            window.location.reload();
+            let row = buttonId.toString().charAt(0)
+            let col = buttonId.toString().charAt(1)
+            socket.send(JSON.stringify({type: "setFlag",row: row,col: col,d: direction}))
+
         }
     });
     $("#interaction").empty().append(div).append(btnWalk);
@@ -314,3 +295,31 @@ $(document).ready(function () {
     initButtons();
     initCurrentPlayerName();
 });
+
+connectWebSocket()
+
+function connectWebSocket() {
+    let websocket = new WebSocket("ws://localhost:9000/websocket");
+    websocket.setTimeout
+
+    websocket.onopen = function(event) {
+        console.log("Connected to Websocket");
+    }
+
+    websocket.onclose = function () {
+        console.log('Connection with Websocket Closed!');
+    };
+
+    websocket.onerror = function (error) {
+        console.log('Error in Websocket Occured: ' + error);
+    };
+
+    websocket.onmessage = function (e) {
+        if (typeof e.data === "string") {
+            let json = JSON.parse(e.data);
+            console.log("in onmessage")
+
+        }
+
+    };
+}
