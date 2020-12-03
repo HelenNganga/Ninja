@@ -31,7 +31,7 @@ function getCurrentPlayerName() {
     }
 }
 
-function initCurrentPlayer() {
+function initCurrentPlayerName() {
     let div = $('<div/>', {
         'class': 'form-group',
     });
@@ -42,7 +42,7 @@ function initCurrentPlayer() {
 
 }
 
-function initF() {
+function initField() {
     let counter = 0;
     let div = $('<div/>', {
         class: 'field-container'
@@ -244,7 +244,6 @@ function walk() {
             })
             window.location.reload();
         }
-
     });
     $("#interaction").empty().append(div).append(btnWalk);
 }
@@ -281,9 +280,9 @@ function initButtons() {
 
 function update(result) {
     game = result;
-    initF();
+    initField();
     initButtons();
-    initCurrentPlayer();
+    initCurrentPlayerName();
 }
 
 function init() {
@@ -298,7 +297,7 @@ function init() {
 $(document).ready(function () {
     console.log('The DOM is ready!');
     init();
-    initF();
+    initField();
     initButtons();
-    initCurrentPlayer();
+    initCurrentPlayerName();
 });
