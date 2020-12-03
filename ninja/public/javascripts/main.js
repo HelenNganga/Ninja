@@ -52,7 +52,7 @@ function initField() {
         for (let col = 0; col < 6; col++) {
 
             let playerId = game.desk.field[counter].cell.ninja.playerId
-            let cellText = ' - '
+            let cellText = ' . '
             let cellClass = 'emptyButton'
             if(playerId == getCurrentPlayer()) {
                 switch(game.desk.field[counter].cell.ninja.weapon) {

@@ -65,7 +65,7 @@ h2 {
 .field {
     border: solid 40px #212729;
     background-color: #212729;
-    width: 580px;
+    width: 560px;
     margin-left: 10vw;
     color: black;
     margin-bottom: 3vw;
@@ -76,7 +76,7 @@ h2 {
     width: 80px;
     height: 80px;
     font-size: large;
-    color:red;
+    color:saddlebrown;
     font-weight: bold;
     background-image: url("currentPlayer.png") ;
     background-repeat: no-repeat;
@@ -86,7 +86,7 @@ h2 {
     width: 80px;
     height: 80px;
     font-size: large;
-    color:red;
+    color:saddlebrown;
     font-weight: bold;
     background-image: url("caroflag.png") ;
     background-repeat: no-repeat;
@@ -96,7 +96,7 @@ h2 {
     width: 80px;
     height: 80px;
     font-size: large;
-    color:red;
+    color:saddlebrown;
     font-weight: bold;
     background-image: url("helenschere.png") ;
     background-repeat: no-repeat;
@@ -106,7 +106,7 @@ h2 {
     width: 80px;
     height: 80px;
     font-size: large;
-    color:red;
+    color:saddlebrown;
     font-weight: bold;
     background-image: url("helenpapier.png") ;
     background-repeat: no-repeat;
@@ -116,7 +116,7 @@ h2 {
     width: 80px;
     height: 80px;
     font-size: large;
-    color:red;
+    color:sandybrown;
     font-weight: bold;
     background-image: url("carostein.png") ;
     background-repeat: no-repeat;
