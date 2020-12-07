@@ -10,7 +10,7 @@ let game = {
     }
 };
 const defaultGame = game;
-
+var socket = new WebSocket("ws://localhost:9000/websocket");
 
 function getCurrentPlayer() {
         if (game.desk.player1.state === 'go') {
@@ -115,7 +115,7 @@ function addPlayer1() {
         "class": "btn btn-primary",
         click: () => {
             let player1 = $("#input-name1").val();
-            socket.send(JSON.stringify({type: "addPlayer1", name: player1}))
+            socket.send(JSON.stringify({type: "player1", name: player1}))
         }
     });
     $("#interaction").empty().append(div).append(btnConfirmName1);
@@ -142,7 +142,7 @@ function addPlayer2() {
         "class": "btn btn-primary",
             click: () => {
                 let player2 = $("#input-name2").val();
-                socket.send(JSON.stringify({type: "addPlayer1", name: player2}))
+                socket.send(JSON.stringify({type: "player2", name: player2}))
             }
     });
     $("#interaction").empty().append(div).append(btnConfirmName2);
@@ -199,13 +199,7 @@ function createNextButtons() {
         id: 'btnNext',
         "class": "btn btn-primary",
         click: () => {
-            $.ajax({
-                method: "GET",
-                url: "http://localhost:9000/f",
-                dataType: "json",
-                success: () => update(defaultGame)
-            })
-            window.location.reload()
+            socket.send(defaultGame)
         }
     });
 
@@ -234,7 +228,7 @@ function walk() {
             let direction = $("#direction-input").val();
             let row = buttonId.toString().charAt(0)
             let col = buttonId.toString().charAt(1)
-            socket.send(JSON.stringify({type: "setFlag",row: row,col: col,d: direction}))
+            socket.send(JSON.stringify({type: "walk",row: row,col: col,d: direction}))
 
         }
     });
@@ -244,7 +238,7 @@ function walk() {
 function initButtons() {
     $.ajax({
         method: "GET",
-        url: "http://localhost:9000/state",
+        url: "/state",
         dataType: "text",
         success: result => {
             switch (result) {
@@ -272,7 +266,7 @@ function initButtons() {
 }
 
 function update(result) {
-    console.log(result);
+    console.log("update:"+result.desk.field.player1);
     game = result;
     initField();
     initButtons();
@@ -299,26 +293,26 @@ $(document).ready(function () {
 connectWebSocket()
 
 function connectWebSocket() {
-    let websocket = new WebSocket("ws://localhost:9000/websocket");
-    websocket.setTimeout
+    socket.setTimeout
 
-    websocket.onopen = function(event) {
+    socket.onopen = function(event) {
         console.log("Connected to Websocket");
     }
 
-    websocket.onclose = function () {
+    socket.onclose = function () {
         console.log('Connection with Websocket Closed!');
     };
 
-    websocket.onerror = function (error) {
+    socket.onerror = function (error) {
         console.log('Error in Websocket Occured: ' + error);
     };
 
-    websocket.onmessage = function (e) {
+    socket.onmessage = function (e) {
         if (typeof e.data === "string") {
             let json = JSON.parse(e.data);
+            update(json)
+            console.log(JSON.parse(e.data));
             console.log("in onmessage")
-
         }
 
     };
