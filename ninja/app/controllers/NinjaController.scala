@@ -33,8 +33,10 @@ class NinjaController @Inject()(cc: ControllerComponents)(implicit system: Actor
       case "createGame" => ninja()
       case "player1" => player((body \ "name").get.as[String])
       case "player2" => player((body \ "name").get.as[String])
-      case "setFlag" => setFlag((body \ "row").get.as[String], (body \ "col").get.as[String])
+      case "setFlag1" => setFlag((body \ "row").get.as[String], (body \ "col").get.as[String])
+      case "setFlag2" => setFlag((body \ "row").get.as[String], (body \ "col").get.as[String])
       case "walk" => walk((body \ "row").get.as[String], (body \ "col").get.as[String], (body \ "d").get.as[String])
+      case "next" => changeTurn()
     }
     Ok(result.toString)
   }
@@ -43,6 +45,7 @@ class NinjaController @Inject()(cc: ControllerComponents)(implicit system: Actor
 
   def state = Action {
     Ok(controller.state.toString)
+
   }
 
   def home = Action {
@@ -119,13 +122,9 @@ class NinjaController @Inject()(cc: ControllerComponents)(implicit system: Actor
           out ! (controller.toJson.toString)
           interaction(msg)
           println("Sent Json to Client" + msg)
+          sendJsonToClient
       }
 
-      //    reactions += {
-      //     case event: GridSizeChanged => sendJsonToClient
-      //     case event: CellChanged     => sendJsonToClient
-      //     case event: CandidatesChanged => sendJsonToClient
-      //    }
 
       def sendJsonToClient = {
         println("Received event from Controller")

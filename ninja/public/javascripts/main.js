@@ -10,7 +10,8 @@ let game = {
     }
 };
 const defaultGame = game;
-var socket = new WebSocket("ws://localhost:9000/websocket");
+let socket = new WebSocket("ws://localhost:9000/websocket");
+
 
 function getCurrentPlayer() {
         if (game.desk.player1.state === 'go') {
@@ -84,7 +85,6 @@ function initField() {
                 class: cellClass,
                 click: () => {
                     buttonId = row.toString().concat(col.toString());
-                    console.log(buttonId)
                 }
 
             }));
@@ -164,7 +164,7 @@ function setFlag1() {
         click: () => {
             let row = buttonId.toString().charAt(0)
             let col = buttonId.toString().charAt(1)
-            socket.send(JSON.stringify({type: "setFlag", row: row, col: col}))
+            socket.send(JSON.stringify({type: "setFlag1", row: row, col: col}))
         }
 
     });
@@ -187,7 +187,7 @@ function setFlag2() {
         click: () => {
             let row = buttonId.toString().charAt(0)
             let col = buttonId.toString().charAt(1)
-            socket.send(JSON.stringify({type: "setFlag",row:row, col:col}))
+            socket.send(JSON.stringify({type: "setFlag2",row:row, col:col}))
         }
     });
     $("#interaction").empty().append(div).append(confirmFlag2);
@@ -199,7 +199,7 @@ function createNextButtons() {
         id: 'btnNext',
         "class": "btn btn-primary",
         click: () => {
-            socket.send(defaultGame)
+            socket.send(JSON.stringify({type: "next"}))
         }
     });
 
@@ -236,6 +236,7 @@ function walk() {
 }
 
 function initButtons() {
+    console.log("initButons")
     $.ajax({
         method: "GET",
         url: "/state",
@@ -266,7 +267,6 @@ function initButtons() {
 }
 
 function update(result) {
-    console.log("update:"+result.desk.field.player1);
     game = result;
     initField();
     initButtons();
@@ -293,6 +293,8 @@ $(document).ready(function () {
 connectWebSocket()
 
 function connectWebSocket() {
+    console.log(socket)
+
     socket.setTimeout
 
     socket.onopen = function(event) {
