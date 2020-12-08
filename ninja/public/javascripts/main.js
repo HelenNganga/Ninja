@@ -51,7 +51,7 @@ function initField() {
     for (let row = 0; row < 6; row++) {
         for (let col = 0; col < 6; col++) {
 
-            let playerId = game.desk.field[counter].cell.ninja.playerId
+            let playerId = game.desk.field[counter]?.cell.ninja.playerId
             let cellText = ' . '
             let cellClass = 'emptyButton'
             if(playerId == getCurrentPlayer()) {
@@ -115,7 +115,7 @@ function addPlayer1() {
         "class": "btn btn-primary",
         click: () => {
             let player1 = $("#input-name1").val();
-            socket.send(JSON.stringify({type: "player1", name: player1}))
+            sendToSocket(JSON.stringify({type: "player1", name: player1}))
         }
     });
     $("#interaction").empty().append(div).append(btnConfirmName1);
@@ -142,7 +142,7 @@ function addPlayer2() {
         "class": "btn btn-primary",
             click: () => {
                 let player2 = $("#input-name2").val();
-                socket.send(JSON.stringify({type: "player2", name: player2}))
+                sendToSocket(JSON.stringify({type: "player2", name: player2}))
             }
     });
     $("#interaction").empty().append(div).append(btnConfirmName2);
@@ -164,7 +164,7 @@ function setFlag1() {
         click: () => {
             let row = buttonId.toString().charAt(0)
             let col = buttonId.toString().charAt(1)
-            socket.send(JSON.stringify({type: "setFlag1", row: row, col: col}))
+            sendToSocket(JSON.stringify({type: "setFlag1", row: row, col: col}))
         }
 
     });
@@ -187,7 +187,7 @@ function setFlag2() {
         click: () => {
             let row = buttonId.toString().charAt(0)
             let col = buttonId.toString().charAt(1)
-            socket.send(JSON.stringify({type: "setFlag2",row:row, col:col}))
+            sendToSocket(JSON.stringify({type: "setFlag2",row:row, col:col}))
         }
     });
     $("#interaction").empty().append(div).append(confirmFlag2);
@@ -199,7 +199,7 @@ function createNextButtons() {
         id: 'btnNext',
         "class": "btn btn-primary",
         click: () => {
-            socket.send(JSON.stringify({type: "next"}))
+            sendToSocket(JSON.stringify({type: "next"}))
         }
     });
 
@@ -228,7 +228,7 @@ function walk() {
             let direction = $("#direction-input").val();
             let row = buttonId.toString().charAt(0)
             let col = buttonId.toString().charAt(1)
-            socket.send(JSON.stringify({type: "walk",row: row,col: col,d: direction}))
+            sendToSocket(JSON.stringify({type: "walk",row: row,col: col,d: direction}))
 
         }
     });
@@ -268,6 +268,7 @@ function initButtons() {
 
 function update(result) {
     game = result;
+    console.log("UPDATE" + game)
     initField();
     initButtons();
     initCurrentPlayerName();
@@ -294,7 +295,6 @@ connectWebSocket()
 
 function connectWebSocket() {
     console.log(socket)
-
     socket.setTimeout
 
     socket.onopen = function(event) {
@@ -310,12 +310,18 @@ function connectWebSocket() {
     };
 
     socket.onmessage = function (e) {
+        console.log("in onmessage")
+
         if (typeof e.data === "string") {
             let json = JSON.parse(e.data);
             update(json)
-            console.log(JSON.parse(e.data));
-            console.log("in onmessage")
+            console.log(json);
+
         }
 
     };
+}
+
+function sendToSocket(msg) {
+    socket.send(msg);
 }
