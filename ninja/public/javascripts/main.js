@@ -11,6 +11,7 @@ let game = {
 };
 const defaultGame = game;
 let socket = new WebSocket("ws://localhost:9000/websocket");
+connectWebSocket()
 
 
 function getCurrentPlayer() {
@@ -280,6 +281,7 @@ function init() {
         dataType: "json",
         success: result => update(result)
     });
+    sendToSocket(JSON.stringify({type: "createGame"}))
 }
 
 $(document).ready(function () {
@@ -290,7 +292,6 @@ $(document).ready(function () {
     initCurrentPlayerName();
 });
 
-connectWebSocket()
 
 function connectWebSocket() {
     console.log(socket)
@@ -298,7 +299,6 @@ function connectWebSocket() {
 
     socket.onopen = function(event) {
         console.log("Connected to Websocket");
-        sendToSocket(JSON.stringify({type: "createGame"}))
     }
 
     socket.onclose = function () {

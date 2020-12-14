@@ -35,7 +35,7 @@ class NinjaController @Inject()(cc: ControllerComponents)(implicit system: Actor
     val body = Json.parse(message)
     val type1 = (body \ "type").get.as[String]
     val result = type1 match {
-      case "createGame" => ninja()
+      case "createGame" => controllerToJson()
       case "state" => state()
       case "player1" => player((body \ "name").get.as[String])
       case "player2" => player((body \ "name").get.as[String])
@@ -43,9 +43,14 @@ class NinjaController @Inject()(cc: ControllerComponents)(implicit system: Actor
       case "setFlag2" => setFlag((body \ "row").get.as[String], (body \ "col").get.as[String])
       case "walk" => walk((body \ "row").get.as[String], (body \ "col").get.as[String], (body \ "d").get.as[String])
       case "next" => changeTurn()
+      case "json" => controllerToJson()
     }
     observer.notifyObservers();
     Ok(result.toString)
+  }
+
+  def controllerToJson() = {
+    controller.toJson
   }
 
   def ninjaAsText = NinjaGame.tui.stateToString()
@@ -59,7 +64,8 @@ class NinjaController @Inject()(cc: ControllerComponents)(implicit system: Actor
   }
 
   def ninja = Action {
-    Ok(views.html.ninja(controller))
+    observer.notifyObservers();
+    Ok( views.html.ninja(controller))
   }
 
   def about = Action {
