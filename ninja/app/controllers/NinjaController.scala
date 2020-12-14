@@ -52,7 +52,6 @@ class NinjaController @Inject()(cc: ControllerComponents)(implicit system: Actor
 
   def state = Action {
     Ok(controller.state.toString)
-
   }
 
   def home = Action {

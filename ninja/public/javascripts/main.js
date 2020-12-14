@@ -229,7 +229,6 @@ function walk() {
             let row = buttonId.toString().charAt(0)
             let col = buttonId.toString().charAt(1)
             sendToSocket(JSON.stringify({type: "walk",row: row,col: col,d: direction}))
-
         }
     });
     $("#interaction").empty().append(div).append(btnWalk);
@@ -299,6 +298,7 @@ function connectWebSocket() {
 
     socket.onopen = function(event) {
         console.log("Connected to Websocket");
+        sendToSocket(JSON.stringify({type: "createGame"}))
     }
 
     socket.onclose = function () {
@@ -316,7 +316,6 @@ function connectWebSocket() {
             let json = JSON.parse(e.data);
             update(json)
             console.log(json);
-
         }
 
     };
