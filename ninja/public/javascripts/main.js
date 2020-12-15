@@ -31,6 +31,10 @@ function getCurrentPlayerName() {
     }
 }
 
+function initState() {
+    sendToSocket(JSON.stringify({type: "state"}))
+}
+
 function initCurrentPlayerName() {
     let div = $('<div/>', {
         'class': 'form-group',
@@ -298,7 +302,7 @@ function connectWebSocket() {
 
     socket.onopen = function(event) {
         console.log("Connected to Websocket");
-        sendToSocket(JSON.stringify({type: "createGame"}))
+        initState();
     }
 
     socket.onclose = function () {

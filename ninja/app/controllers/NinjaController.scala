@@ -43,6 +43,7 @@ class NinjaController @Inject()(cc: ControllerComponents)(implicit system: Actor
       case "setFlag2" => setFlag((body \ "row").get.as[String], (body \ "col").get.as[String])
       case "walk" => walk((body \ "row").get.as[String], (body \ "col").get.as[String], (body \ "d").get.as[String])
       case "next" => changeTurn()
+      case "state" => state()
     }
     observer.notifyObservers();
     Ok(result.toString)
